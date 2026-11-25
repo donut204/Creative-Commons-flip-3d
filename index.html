@@ -20,6 +20,18 @@
 @media (max-width:590px){.app{padding:0 12px}.topbar{height:72px}.brand strong{font-size:18px}.brand small{font-size:7px;letter-spacing:1px}.brand-mark{width:38px;height:38px;border-radius:10px}.top-right{gap:6px}.topic-tag{display:none}.icon-button{width:34px;height:34px;font-size:19px;border-radius:10px}.intro{min-height:166px;padding:15px 6px}.eyebrow{font-size:9px;letter-spacing:1px}.intro p{font-size:12px}.intro h1{font-size:30px}.game-panel{padding:13px 10px;border-radius:17px}.panel-head{margin-bottom:9px}.round-label{font-size:11px}.round-count{font-size:9px;padding:7px}.board-scene{padding:2px 0 17px}.board-frame{border-radius:11px}.tiles{gap:3px;padding:4px}.tile-front{border-radius:5px;box-shadow:0 3px 0 #273370,0 5px 6px #070e30a8}.tile{font-size:12px}.symbol-token{width:44px;height:44px;font-size:15px;border-width:2px;box-shadow:0 6px 0 #bfd0eb,0 13px 22px #030b326a}.art-symbols{gap:5px}.art-topline{top:18px;font-size:6px;letter-spacing:1px}.art-bottomline{bottom:14px;font-size:8px}.art-title{font-size:25px}.art-subtitle{font-size:12px}.answer-art{gap:11px;padding:8px}.panel-footer{align-items:flex-end}.keyboard-hint{display:none}.control-panel{grid-template-columns:1fr}.control-card,.privacy-note{grid-column:1}.mode-switch{grid-template-columns:1fr 1fr}.mode-btn{padding:9px;gap:6px}.mode-icon{width:28px;height:28px;font-size:17px}.mode-btn>span:last-child{font-size:12px}.mode-btn small{font-size:9px}.stats-grid{grid-template-columns:repeat(4,1fr);gap:6px}.stat{padding:10px 6px;min-height:76px;text-align:center}.stat>span{font-size:9px}.stat strong{font-size:20px}.stat:nth-child(3) strong{font-size:14px}.stat small{font-size:8px}.footer{flex-direction:column;gap:7px;font-size:10px}.question-dialog{padding:20px 16px}.answer-option{padding:11px;font-size:13px}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
+
+/* Exact user-supplied Creative Commons pictograms, faithfully traced as scalable vector assets. */
+.answer-art, .answer-art[data-tone] {background:#05060a;}
+.answer-art:before{display:none}
+.art-image{position:relative;z-index:1;display:block;width:min(88%,570px);height:auto;max-height:79%;aspect-ratio:1/1;object-fit:contain;filter:drop-shadow(0 18px 32px #0005);user-select:none;pointer-events:none}
+.art-image[hidden], .art-title[hidden], .art-subtitle[hidden]{display:none!important}
+.answer-art.is-revealed .art-image{width:min(70%,450px);max-height:61%}
+.answer-art.is-revealed .art-title{font-size:clamp(24px,4vw,40px);line-height:1.1;color:#fff}
+.answer-art.is-revealed .art-subtitle{font-size:clamp(12px,1.4vw,19px);line-height:1.4}
+.answer-art .art-topline{top:28px;color:#99b8e0}
+.answer-art .art-bottomline{bottom:24px;color:#bdc8d9}
+.board-frame.quiz-board .answer-art{background:radial-gradient(circle at 50% 45%,#293c89,#111b4c 70%)}
 </style>
 </head>
 <body>
@@ -54,15 +66,15 @@
         <section class="game-panel" aria-label="กระดานเกม">
           <div class="panel-head">
             <div class="round-label"><span class="status-dot"></span> <span id="gameStatus">โหมดเปิดป้ายภาพปริศนา</span></div>
-            <div class="round-count" id="roundInfo">ROUND 01 / 04</div>
+            <div class="round-count" id="roundInfo">ROUND 01 / 05</div>
           </div>
           <div class="board-scene" id="boardScene">
             <div class="board-frame" id="boardFrame">
               <div class="answer-art" id="answerArt" aria-hidden="true">
                 <div class="art-topline">CREATIVE COMMONS · IDENTIFY THE LICENSE</div>
-                <div class="art-symbols" id="artSymbols"><span class="symbol-token">CC</span><span class="symbol-token">BY</span></div>
-                <div class="art-title" id="artTitle">CC BY</div>
-                <div class="art-subtitle" id="artSubtitle">ให้เครดิตผู้สร้างสรรค์ผลงาน</div>
+                <img class="art-image" id="artImage" src="./assets/cc.svg" alt="" draggable="false" />
+                <div class="art-title" id="artTitle" hidden></div>
+                <div class="art-subtitle" id="artSubtitle" hidden></div>
                 <div class="art-bottomline">✦ สังเกตสัญลักษณ์ แล้วตอบให้ถูกต้อง ✦</div>
               </div>
               <div class="tiles" id="tiles" aria-label="ป้ายเกมหมายเลข 1 ถึง 36"></div>
@@ -141,18 +153,11 @@ function gradeAnswer(question, chosenIndex) {
 }
 
 const REVEAL_CARDS = [
-  { label: 'CC BY', name: 'Attribution', subtitle: 'ให้เครดิตผู้สร้างผลงาน', tokens: ['CC', 'BY'], tone: 'cyan', hint: 'ผลงานนี้ดัดแปลงและใช้เชิงพาณิชย์ได้ หากทำตามเงื่อนไข' },
-  { label: 'CC BY-SA', name: 'ShareAlike', subtitle: 'เผยแพร่งานดัดแปลงแบบเดียวกัน', tokens: ['CC', 'BY', 'SA'], tone: 'violet', hint: 'งานใหม่ที่ดัดแปลงต้องมีเงื่อนไขแบบเดียวกัน' },
-  { label: 'CC BY-NC', name: 'NonCommercial', subtitle: 'ไม่ใช่เพื่อวัตถุประสงค์ทางการค้า', tokens: ['CC', 'BY', 'NC'], tone: 'pink', hint: 'มีเงื่อนไขว่าต้องไม่ใช้ในเชิงพาณิชย์' },
-  { label: 'CC BY-ND', name: 'NoDerivatives', subtitle: 'ไม่เผยแพร่งานที่ดัดแปลง', tokens: ['CC', 'BY', 'ND'], tone: 'amber', hint: 'เผยแพร่ได้เมื่อไม่ดัดแปลงต้นฉบับ' },
-  { label: 'CC BY-NC-SA', name: 'NonCommercial · ShareAlike', subtitle: 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ แชร์แบบเดียวกัน', tokens: ['CC', 'BY', 'NC', 'SA'], tone: 'cyan', hint: 'เงื่อนไขสามส่วน: เครดิต ไม่ค้า และแชร์แบบเดียวกัน' },
-  { label: 'CC BY-NC-ND', name: 'NonCommercial · NoDerivatives', subtitle: 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ ไม่เผยแพร่งานดัดแปลง', tokens: ['CC', 'BY', 'NC', 'ND'], tone: 'pink', hint: 'เงื่อนไขจำกัดทั้งด้านเชิงพาณิชย์และการดัดแปลง' },
-  { label: 'CC0', name: 'Public Domain Dedication', subtitle: 'สละสิทธิ์เท่าที่กฎหมายอนุญาต', tokens: ['CC0'], tone: 'amber', hint: 'เจ้าของมุ่งเปิดให้ใช้ผลงานอย่างเสรีที่สุด' },
-  { label: 'BY', name: 'Attribution', subtitle: 'ระบุที่มา', tokens: ['BY'], tone: 'cyan', hint: 'เป็นเงื่อนไขพื้นฐานของ CC ทั้งหกรูปแบบหลัก' },
-  { label: 'SA', name: 'ShareAlike', subtitle: 'เผยแพร่แบบเดียวกัน', tokens: ['SA'], tone: 'violet', hint: 'ปรับแต่งแล้วแบ่งปันภายใต้ใบอนุญาตแบบเดียวกัน' },
-  { label: 'NC', name: 'NonCommercial', subtitle: 'ไม่ใช้เชิงพาณิชย์', tokens: ['NC'], tone: 'pink', hint: 'คำนึงถึงวัตถุประสงค์ทางการค้าของการนำไปใช้' },
-  { label: 'ND', name: 'NoDerivatives', subtitle: 'ไม่แบ่งปันงานดัดแปลง', tokens: ['ND'], tone: 'amber', hint: 'หากต้องการตัดต่อและเผยแพร่ อาจต้องขออนุญาตเพิ่ม' },
-  { label: 'Creative Commons', name: 'Open Licenses', subtitle: 'สัญญาอนุญาตให้ใช้ผลงานภายใต้เงื่อนไข', tokens: ['CC'], tone: 'violet', hint: 'เครื่องมือระบุสิทธิและเงื่อนไขการใช้ผลงาน' },
+  { label: 'CC', name: 'Creative Commons', subtitle: 'สัญลักษณ์ Creative Commons', image: './assets/cc.svg', tone: 'cyan', hint: 'สัญลักษณ์หลักของระบบสัญญาอนุญาตที่ส่งเสริมการแบ่งปันผลงาน' },
+  { label: 'BY', name: 'Attribution', subtitle: 'แสดงที่มาและให้เครดิต', image: './assets/by.svg', tone: 'cyan', hint: 'เมื่อใช้ผลงาน ต้องให้เครดิตผู้สร้างสรรค์ตามเงื่อนไข' },
+  { label: 'NC', name: 'NonCommercial', subtitle: 'ไม่ใช้เพื่อวัตถุประสงค์ทางการค้า', image: './assets/nc.svg', tone: 'pink', hint: 'สัญลักษณ์นี้เกี่ยวกับการจำกัดการนำผลงานไปใช้เชิงพาณิชย์' },
+  { label: 'ND', name: 'NoDerivatives', subtitle: 'ไม่เผยแพร่ผลงานที่ดัดแปลง', image: './assets/nd.svg', tone: 'amber', hint: 'หากดัดแปลงผลงานแล้ว ไม่สามารถแบ่งปันฉบับดัดแปลงตามเงื่อนไขนี้ได้' },
+  { label: 'SA', name: 'ShareAlike', subtitle: 'เผยแพร่ภายใต้เงื่อนไขเดียวกัน', image: './assets/sa.svg', tone: 'violet', hint: 'เมื่อดัดแปลงและเผยแพร่ ต้องใช้สัญญาอนุญาตแบบเดียวกันหรือที่เข้ากันได้' },
 ];
 
 // Creative Commons 4.0 / digital citizenship questions for upper-secondary learners.
@@ -221,7 +226,7 @@ const QUESTIONS = [
 const $ = (id) => document.getElementById(id);
 const els = {
   tiles: $('tiles'), board: $('boardFrame'), scene: $('boardScene'),
-  art: $('answerArt'), symbols: $('artSymbols'), artTitle: $('artTitle'), artSubtitle: $('artSubtitle'),
+  art: $('answerArt'), artImage: $('artImage'), artTitle: $('artTitle'), artSubtitle: $('artSubtitle'),
   gameStatus: $('gameStatus'), roundInfo: $('roundInfo'), roundNumber: $('roundNumber'),
   progressText: $('progressText'), progressFill: $('progressFill'), openedCount: $('openedCount'),
   score: $('score'), timer: $('timer'), complete: $('boardComplete'),
@@ -234,11 +239,11 @@ const els = {
 };
 
 const TOTAL_TILES = 36;
-const TOTAL_ROUNDS = 4;
+const TOTAL_ROUNDS = 5;
 const state = {
   mode: 'reveal', round: 0, rounds: [], opened: new Set(),
   quizDeck: [], answered: 0, activeTile: -1, answeredModal: false, score: 0,
-  running: false, seconds: 0, muted: true, hintVisible: false,
+  running: false, seconds: 0, muted: true, hintVisible: false, revealed: false,
 };
 let lastFocusedTile = null;
 let audioContext = null;
@@ -295,17 +300,16 @@ function currentCard() { return state.rounds[state.round]; }
 
 function renderArt() {
   const card = currentCard();
+  const isQuiz = state.mode === 'quiz';
   els.art.dataset.tone = card.tone;
-  els.symbols.replaceChildren();
-  for (const token of card.tokens) {
-    const item = document.createElement('span');
-    item.className = 'symbol-token';
-    item.textContent = token;
-    els.symbols.append(item);
-  }
-  els.artTitle.textContent = card.label;
-  els.artSubtitle.textContent = card.subtitle;
-  els.art.setAttribute('aria-label', `${card.label} — ${card.subtitle}`);
+  els.artImage.src = card.image;
+  els.artImage.hidden = isQuiz;
+  els.artTitle.textContent = isQuiz ? '❔' : card.label;
+  els.artSubtitle.textContent = isQuiz ? 'เลือกแผ่นป้ายเพื่อสุ่มคำถาม' : card.subtitle;
+  els.artTitle.hidden = !isQuiz && !state.revealed;
+  els.artSubtitle.hidden = !isQuiz && !state.revealed;
+  els.art.classList.toggle('is-revealed', !isQuiz && state.revealed);
+  els.art.setAttribute('aria-label', isQuiz ? 'โหมดตอบคำถาม' : (state.revealed ? `${card.label} — ${card.subtitle}` : 'ภาพปริศนา Creative Commons'));
   els.art.setAttribute('aria-hidden', 'true');
 }
 
@@ -338,7 +342,7 @@ function refreshStatus() {
   els.openedCount.innerHTML = `${openedCount}<span class="subnum">/36</span>`;
   els.progressText.textContent = state.mode === 'reveal' ? `เปิดแล้ว ${openedCount} / 36 ป้าย` : `ตอบแล้ว ${openedCount} / 36 คำถาม`;
   els.progressFill.style.width = `${percent}%`;
-  els.roundInfo.textContent = state.mode === 'reveal' ? `ROUND ${String(state.round + 1).padStart(2,'0')} / 04` : 'QUESTION CHALLENGE';
+  els.roundInfo.textContent = state.mode === 'reveal' ? `ROUND ${String(state.round + 1).padStart(2,'0')} / ${String(TOTAL_ROUNDS).padStart(2,'0')}` : 'QUESTION CHALLENGE';
   els.roundNumber.textContent = state.mode === 'reveal' ? String(state.round + 1).padStart(2,'0') : '01';
   els.gameStatus.textContent = state.mode === 'reveal' ? 'โหมดเปิดป้ายภาพปริศนา' : 'โหมดท้าทายความรู้ · สุ่มคำถามไม่ซ้ำ';
   els.complete.hidden = openedCount !== TOTAL_TILES;
@@ -373,6 +377,8 @@ function openTile(tile, index) {
   playTone('flip');
   refreshStatus();
   if (state.opened.size === TOTAL_TILES) {
+    state.revealed = true;
+    renderArt();
     state.score += 100;
     state.running = false;
     celebration();
@@ -454,6 +460,8 @@ function finishQuestion() {
 function revealAll() {
   if (state.mode !== 'reveal') return;
   startTimer();
+  state.revealed = true;
+  renderArt();
   els.tiles.querySelectorAll('.tile').forEach((tile, index) => {
     if (!state.opened.has(index)) {
       state.opened.add(index);
@@ -472,6 +480,7 @@ function nextRound() {
   state.round++;
   state.opened.clear();
   state.hintVisible = false;
+  state.revealed = false;
   state.running = false;
   renderArt();
   makeTiles();
@@ -492,6 +501,7 @@ function newGame(mode = state.mode) {
   state.running = false;
   state.seconds = 0;
   state.hintVisible = false;
+  state.revealed = false;
   els.timer.textContent = '00:00';
   els.modal.hidden = true;
   renderArt();
