@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070c1f" />
+  <meta name="description" content="เกมเปิดแผ่นป้าย Creative Commons แบบ 3D และคำถามสุ่มไม่ซ้ำ สำหรับการสอนวิชาเทคโนโลยี" />
+  <title>CC FLIP 3D — เกมเปิดแผ่นป้าย Creative Commons</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap');
+:root{color-scheme:dark;--bg:#060b1e;--panel:#0e1632;--panel2:#101c3c;--line:#29365d;--white:#f1f5ff;--muted:#99a8cc;--mint:#4ceacb;--cyan:#63c9ff;--violet:#8c7eff;--gold:#ffd18a;--radius:23px;--font:'Kanit',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:var(--font);min-height:100vh}button,a{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.42}button:focus-visible,a:focus-visible{outline:3px solid #64eedb;outline-offset:3px}a{color:inherit}.background-orbit{position:fixed;border-radius:50%;filter:blur(65px);pointer-events:none;z-index:-2}.orbit-one{width:540px;height:540px;top:-270px;right:-110px;background:rgba(72,67,194,.23)}.orbit-two{width:550px;height:420px;bottom:-260px;left:-180px;background:rgba(18,148,170,.16)}.grid-glow{position:fixed;inset:0;background-image:linear-gradient(transparent 98%,rgba(139,162,239,.035) 100%),linear-gradient(90deg,transparent 98%,rgba(139,162,239,.03) 100%);background-size:62px 62px;mask-image:linear-gradient(180deg,transparent 4%,black 40%,transparent 100%);z-index:-1;pointer-events:none}
+.app{max-width:1500px;margin:auto;padding:0 36px}.topbar{display:flex;justify-content:space-between;align-items:center;height:95px;border-bottom:1px solid rgba(184,201,255,.12)}.brand{text-decoration:none;display:flex;align-items:center;gap:13px}.brand-mark{width:49px;height:49px;display:grid;place-items:center;transform:rotate(-11deg);border:1px solid rgba(120,249,220,.65);border-radius:14px;background:linear-gradient(145deg,#32e5c1,#5476f9);box-shadow:0 7px 25px rgba(60,167,246,.21)}.brand-mark span{font-size:29px;color:#091329;transform:rotate(11deg)}.brand strong{display:block;letter-spacing:.5px;font-size:24px;line-height:1.1}.brand-3d{background:linear-gradient(120deg,var(--mint),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;margin-left:4px}.brand small{display:block;color:#96a4c8;letter-spacing:2px;font-family:system-ui,sans-serif;font-size:9px;font-weight:700;margin-top:5px}.top-right{display:flex;align-items:center;gap:10px}.topic-tag{font-size:14px;color:#b5c3e5;border:1px solid rgba(149,164,216,.23);padding:10px 19px;border-radius:100px;margin-right:12px}.icon-button{border:1px solid #2e3b62;background:#142145;color:#e9f2ff;border-radius:14px;width:42px;height:42px;display:grid;place-items:center;font-size:22px;transition:background .2s,transform .2s}.icon-button:hover{background:#23376b;transform:translateY(-2px)}
+.intro{display:flex;min-height:211px;align-items:center;justify-content:space-between;position:relative;padding:26px 10px 21px}.intro-copy{position:relative;z-index:2}.eyebrow{font:700 10px/1.5 system-ui,sans-serif;letter-spacing:2px;color:#9ce5e1;display:flex;gap:8px;align-items:center}.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#41e1bf;box-shadow:0 0 0 4px rgba(63,237,200,.12)}h1{font-size:clamp(32px,3vw,49px);font-weight:700;letter-spacing:-.7px;line-height:1.22;margin:14px 0 7px}.gradient-text{background:linear-gradient(105deg,#59e8cd 6%,#7fd0ff 68%,#aa8aff);-webkit-background-clip:text;background-clip:text;color:transparent}.intro p{margin:8px 0 0;font-size:15px;font-weight:300;color:#aebcde;max-width:740px}.intro-decor{width:200px;height:170px;position:relative;margin-right:38px;flex:none}.deco-ring{width:140px;height:140px;border:1px solid rgba(91,225,227,.27);border-radius:50%;position:absolute;top:10px;left:26px;display:grid;place-items:center;transform:rotateX(62deg) rotateZ(-23deg)}.floating-cube{width:105px;height:105px;border:2px solid #6bb8fe;border-radius:22px;background:linear-gradient(140deg,#243a98,#564eaa 45%,#13cfbf);box-shadow:22px 25px 0 -1px #222961,20px 23px 45px #1fd5e537;transform:rotateZ(20deg) rotateX(-55deg);display:grid;place-items:center}.floating-cube span{font:900 38px system-ui;letter-spacing:-3px;text-shadow:0 2px 15px #101647}.sparkle{position:absolute;color:#6ee2d0}.d1{right:9px;top:2px;font-size:30px}.d2{left:0;bottom:1px;font-size:18px}
+.game-layout{display:grid;grid-template-columns:minmax(0,1fr) 318px;gap:24px;align-items:start}.game-panel{background:linear-gradient(140deg,#121d3f 0%,#0d1732 67%,#141a37 100%);border:1px solid #293b69;border-radius:26px;box-shadow:0 28px 90px #02091b90, inset 0 1px 0 #526db123;padding:22px 25px 17px;min-width:0}.panel-head,.panel-footer{display:flex;align-items:center;justify-content:space-between;gap:14px}.panel-head{margin-bottom:12px}.round-label{color:#d8e7ff;font-size:14px;font-weight:500}.status-dot{width:7px;height:7px;background:#4ae4c8;display:inline-block;border-radius:50%;margin-right:6px;box-shadow:0 0 12px #4ae4c8}.round-count{font:700 11px system-ui,sans-serif;letter-spacing:1.8px;color:#9dc5ee;border:1px solid #3a5384;border-radius:100px;padding:9px 13px}.board-scene{perspective:1600px;perspective-origin:center 40%;padding:8px 5px 19px;position:relative}.board-frame{position:relative;aspect-ratio:1/1;max-height:610px;width:min(100%,610px);margin:0 auto;isolation:isolate;border:1px solid #3f579a;border-radius:21px;box-shadow:0 28px 0 -12px #08102c,0 29px 0 -10px #2a477c,0 50px 48px #02081d82;transform:rotateX(var(--tiltx,0deg)) rotateY(var(--tilty,0deg));transition:transform .26s ease;overflow:hidden;background:#172a6b}.board-frame:before{content:"";position:absolute;inset:0;z-index:0;border-radius:20px;background:radial-gradient(circle at 50% 35%,#9d7ff550,transparent 57%);pointer-events:none}.answer-art{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:15px;text-align:center;overflow:hidden;padding:25px;color:white;background:linear-gradient(145deg,#273d91 0%,#182e6e 42%,#564bae 100%)}.answer-art:before{content:'';position:absolute;width:85%;height:85%;border:1px solid #ffffff25;border-radius:50%;box-shadow:0 0 0 65px #ffffff04;transform:rotate(-25deg)}.answer-art:after{content:'';position:absolute;inset:22px;border:1px dashed #ffffff29;border-radius:15px;pointer-events:none}.answer-art[data-tone=cyan]{background:radial-gradient(circle at 70% 15%,#206a9f 0%,#1e3d81 40%,#132052 100%)}.answer-art[data-tone=violet]{background:radial-gradient(circle at 70% 15%,#7d52b9 0%,#3b317f 44%,#161844 100%)}.answer-art[data-tone=pink]{background:radial-gradient(circle at 70% 15%,#b94582 0%,#673678 43%,#241848 100%)}.answer-art[data-tone=amber]{background:radial-gradient(circle at 70% 15%,#ac6a35 0%,#614c7a 48%,#161b46 100%)}.art-topline,.art-bottomline{font:700 10px system-ui,sans-serif;letter-spacing:2.2px;color:#c4e9fb;position:relative;z-index:1}.art-topline{position:absolute;top:40px}.art-bottomline{position:absolute;bottom:36px;font-family:var(--font)}.art-symbols{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}.symbol-token{width:76px;height:76px;background:linear-gradient(145deg,#ffffff,#e3f4ff);color:#1a2850;display:grid;place-items:center;border-radius:50%;box-shadow:0 10px 0 #bfd0eb,0 22px 28px #030b326a;border:5px solid #c1eaff;font:900 25px system-ui,sans-serif;letter-spacing:-1px}.art-title{font:900 clamp(28px,4.2vw,62px)/1.1 system-ui,sans-serif;letter-spacing:-1.7px;z-index:1;text-shadow:0 9px 25px #0004}.art-subtitle{position:relative;z-index:1;font-size:clamp(15px,1.6vw,23px);color:#e0f9ff;max-width:450px}.tiles{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:5px;padding:7px;z-index:3}.tile{font:800 clamp(13px,1.45vw,22px) system-ui,sans-serif;perspective:600px;appearance:none;border:0;background:transparent;padding:0;position:relative;color:#eafdff;min-width:0;min-height:0;z-index:0;transition:opacity .45s .24s,filter .3s}.tile-body{position:absolute;inset:0;transform-style:preserve-3d;transform:translateZ(6px);transition:transform .65s cubic-bezier(.2,.75,.2,1)}.tile-front{position:absolute;inset:0;display:grid;place-items:center;border-radius:8px;background:linear-gradient(145deg,#458de9 0%,#5b63c9 48%,#373d91 100%);border:1px solid #92bdff8c;box-shadow:inset 0 2px 1px #ffffff52,inset -3px -4px 10px #14195c80,0 6px 0 #273370,0 9px 11px #070e30a8;transform:translateZ(8px);backface-visibility:hidden}.tile-front:before{content:"";position:absolute;inset:4px;border:1px solid #ffffff1b;border-radius:6px;pointer-events:none}.tile:hover:not(.opened) .tile-body{transform:translateZ(15px) rotateX(-6deg)}.tile:hover:not(.opened) .tile-front{background:linear-gradient(145deg,#71b9ff,#7471ee 52%,#414b9e)}.tile.opened .tile-body{transform:translateZ(40px) rotateY(140deg) rotateX(10deg) scale(.62)}.tile.opened{opacity:0;pointer-events:none}.tile.answered-quiz{opacity:1;pointer-events:none}.tile.answered-quiz .tile-body{transform:none}.tile.answered-quiz .tile-front{background:linear-gradient(140deg,#173d51,#1b4658);border-color:#2d7a85;color:#59eac9;box-shadow:inset 0 2px 12px #091c26}.tile.answered-quiz .tile-front:after{content:'✓';font-size:22px;position:absolute;background:#214c59;inset:0;display:grid;place-items:center;border-radius:7px}.board-frame.quiz-board .answer-art{background:radial-gradient(circle at 50% 45%,#293c89,#111b4c 70%)}.board-frame.quiz-board .answer-art:before{content:'?';font:900 310px/1 system-ui;color:#ffffff0e;box-shadow:none;border:0;display:grid;place-items:center}.board-complete{position:absolute;z-index:5;bottom:8px;left:50%;transform:translateX(-50%);white-space:nowrap;border:1px solid #7fe5dc70;background:#042e4edd;backdrop-filter:blur(9px);color:#7cfbe0;padding:7px 19px;border-radius:40px;font-size:14px;font-weight:600;box-shadow:0 0 30px #3be9d449}.board-complete span{color:#ffdd8c}.panel-footer{margin-top:7px;gap:20px}.progress-wrap{min-width:190px;flex:1;color:#b5c5e8;font-size:12px}.progress-track{height:5px;border-radius:30px;background:#29365f;margin-top:7px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#53e3c4,#6ec9ff);border-radius:30px;transition:width .35s}.keyboard-hint{font-size:11px;color:#879ac4;font-weight:300;text-align:right}
+.control-panel{display:flex;flex-direction:column;gap:14px}.side-card{padding:21px;background:linear-gradient(152deg,#131e3d,#10182f);border:1px solid #293559;border-radius:20px;box-shadow:0 12px 40px #01082035}.section-kicker{font:800 10px system-ui,sans-serif;letter-spacing:2px;color:#6db6d8;margin-bottom:11px}.side-card h2{font-size:18px;font-weight:600;letter-spacing:.1px;margin:0 0 14px}.mode-switch{display:grid;gap:9px}.mode-btn{padding:12px;display:flex;align-items:center;gap:11px;border-radius:12px;background:#172341;color:#e4edff;border:1px solid #33416c;text-align:left}.mode-btn.active{background:linear-gradient(125deg,#173e58,#242c63);border:1px solid #5fe2d89c;box-shadow:inset 3px 0 0 #59e8c8}.mode-btn:hover{filter:brightness(1.17)}.mode-btn>span:last-child{font-size:14px;line-height:1.3}.mode-btn small{display:block;color:#91a5c9;font-weight:300;font-size:11px;margin-top:2px}.mode-icon{display:grid;place-items:center;width:33px;height:33px;border-radius:10px;background:#3b4b83;color:#c4ffff;font-size:23px;flex:none}.mode-btn.active .mode-icon{background:#155d70}.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{background:#172444;border:1px solid #293962;border-radius:12px;padding:13px 12px;display:flex;flex-direction:column;min-height:88px}.stat>span{font-size:12px;color:#b1c2e3}.stat strong{font:800 28px/1.4 system-ui,sans-serif;letter-spacing:-.5px;color:#e6f8ff;margin-top:4px}.stat:first-child strong{color:#6bf3d5}.stat:nth-child(3) strong{font-size:22px;letter-spacing:0;margin-top:8px}.subnum{font-size:13px;color:#8c9fc7}.stat small{font:700 9px system-ui,sans-serif;letter-spacing:1.7px;color:#7386ae}.action-button{width:100%;border-radius:11px;display:flex;align-items:center;gap:9px;justify-content:flex-start;padding:12px 14px;border:1px solid #36466c;background:#172545;color:#e8f1ff;font-size:14px;font-weight:500;transition:transform .18s,filter .18s;margin-top:8px}.action-button:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.14)}.action-button.primary{background:linear-gradient(110deg,#56e4bf,#64c8fc);border-color:#6ff7eb;color:#0d2342;font-weight:700}.action-button.ghost{background:transparent;border:1px solid #2c3d61;color:#b6c6ea}.btn-arrow{margin-left:auto;font-size:18px}.hint-box{margin-top:9px;border-left:3px solid #ffda83;color:#fce5aa;font-size:13px;background:#40382788;border-radius:5px;padding:10px 12px}.privacy-note{font-size:11px;color:#8296b8;margin:2px 8px;text-align:center}.privacy-note span{font-size:9px;color:#47d1ac;padding-right:5px}.footer{border-top:1px solid #273456;margin:35px 0 20px;padding-top:17px;color:#7e92b8;font-size:11px;display:flex;justify-content:space-between;gap:15px}.footer a{color:#6fd9e6;text-decoration:none}
+.modal-backdrop{position:fixed;inset:0;z-index:25;background:#030714d9;backdrop-filter:blur(12px);display:grid;place-items:center;padding:20px}.modal-backdrop[hidden]{display:none}.question-dialog{width:min(610px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:linear-gradient(156deg,#192752,#0d1734 90%);border:1px solid #5d71b2;border-radius:24px;box-shadow:0 25px 100px #000b,0 0 70px #6a68ff2a;padding:29px 32px;animation:popup .28s ease-out}.dialog-top,.dialog-meta{display:flex;justify-content:space-between;align-items:center;gap:10px}.dialog-badge{font:800 10px system-ui,sans-serif;color:#77edd8;letter-spacing:2px}.dialog-close{background:#23345b;border:1px solid #42618d;color:#e7f4ff;border-radius:10px;width:34px;height:34px}.dialog-meta{margin-top:25px;color:#99b5ea;font-size:12px}.dialog-meta span:last-child{font:800 10px system-ui,sans-serif;letter-spacing:1px}.question-dialog h2{font-size:clamp(20px,3vw,28px);line-height:1.5;font-weight:600;margin:13px 0 22px}.answer-options{display:grid;gap:11px}.answer-option{border:1px solid #3b4f7e;background:#1b2b52;border-radius:13px;color:#e7f1ff;text-align:left;padding:12px 14px;display:flex;align-items:center;gap:13px;font-size:15px;line-height:1.5}.answer-option:not(:disabled):hover{border-color:#7baff5;background:#273b6b}.answer-letter{background:#324d7a;border-radius:9px;min-width:30px;height:31px;display:grid;place-items:center;font:800 13px system-ui,sans-serif;color:#b9e5ff}.answer-option.correct{border-color:#69edc9;background:#155248;color:#dcfff4}.answer-option.wrong{border-color:#ff9a9a;background:#5f293a;color:#ffe4e8}.answer-feedback{margin-top:20px;padding:15px 16px;background:#1c3a52;border:1px solid #3e91a2;border-radius:13px;color:#e0f8ff;font-size:14px;line-height:1.55}.answer-feedback.negative{background:#41304c;border-color:#80527f}.answer-feedback strong{display:block;font-size:16px;margin-bottom:5px}.dialog-actions{display:flex;justify-content:flex-end}.dialog-actions .action-button{width:auto;min-width:138px;justify-content:center;margin-top:18px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,25px);z-index:30;opacity:0;pointer-events:none;min-width:230px;max-width:90%;text-align:center;background:#1c3852;border:1px solid #52bbbf;color:#dffefa;box-shadow:0 15px 42px #0008;border-radius:14px;padding:12px 19px;font-size:14px;transition:opacity .25s,transform .25s}.toast.visible{opacity:1;transform:translate(-50%,0)}.confetti{pointer-events:none;position:fixed;inset:0;overflow:hidden;z-index:40}.confetti-piece{position:absolute;top:-25px;width:9px;height:16px;border-radius:2px;animation:fall 2.1s cubic-bezier(.2,.9,.2,1) forwards}@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(960deg);opacity:0}}@keyframes popup{from{transform:translateY(17px) scale(.965);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@media (max-width:1200px){.app{padding:0 20px}.game-layout{grid-template-columns:minmax(0,1fr) 285px;gap:14px}.game-panel{padding:15px}.side-card{padding:15px}.intro-decor{margin-right:7px}}
+@media (max-width:950px){.game-layout{grid-template-columns:1fr}.control-panel{display:grid;grid-template-columns:1fr 1fr;gap:12px}.control-card{grid-column:1/3}.privacy-note{grid-column:1/3}.board-frame{width:min(100%,600px)}.board-scene{padding:8px 0 16px}.intro-decor{display:none}.topbar{height:78px}}
+@media (max-width:590px){.app{padding:0 12px}.topbar{height:72px}.brand strong{font-size:18px}.brand small{font-size:7px;letter-spacing:1px}.brand-mark{width:38px;height:38px;border-radius:10px}.top-right{gap:6px}.topic-tag{display:none}.icon-button{width:34px;height:34px;font-size:19px;border-radius:10px}.intro{min-height:166px;padding:15px 6px}.eyebrow{font-size:9px;letter-spacing:1px}.intro p{font-size:12px}.intro h1{font-size:30px}.game-panel{padding:13px 10px;border-radius:17px}.panel-head{margin-bottom:9px}.round-label{font-size:11px}.round-count{font-size:9px;padding:7px}.board-scene{padding:2px 0 17px}.board-frame{border-radius:11px}.tiles{gap:3px;padding:4px}.tile-front{border-radius:5px;box-shadow:0 3px 0 #273370,0 5px 6px #070e30a8}.tile{font-size:12px}.symbol-token{width:44px;height:44px;font-size:15px;border-width:2px;box-shadow:0 6px 0 #bfd0eb,0 13px 22px #030b326a}.art-symbols{gap:5px}.art-topline{top:18px;font-size:6px;letter-spacing:1px}.art-bottomline{bottom:14px;font-size:8px}.art-title{font-size:25px}.art-subtitle{font-size:12px}.answer-art{gap:11px;padding:8px}.panel-footer{align-items:flex-end}.keyboard-hint{display:none}.control-panel{grid-template-columns:1fr}.control-card,.privacy-note{grid-column:1}.mode-switch{grid-template-columns:1fr 1fr}.mode-btn{padding:9px;gap:6px}.mode-icon{width:28px;height:28px;font-size:17px}.mode-btn>span:last-child{font-size:12px}.mode-btn small{font-size:9px}.stats-grid{grid-template-columns:repeat(4,1fr);gap:6px}.stat{padding:10px 6px;min-height:76px;text-align:center}.stat>span{font-size:9px}.stat strong{font-size:20px}.stat:nth-child(3) strong{font-size:14px}.stat small{font-size:8px}.footer{flex-direction:column;gap:7px;font-size:10px}.question-dialog{padding:20px 16px}.answer-option{padding:11px;font-size:13px}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+  <div class="background-orbit orbit-one" aria-hidden="true"></div>
+  <div class="background-orbit orbit-two" aria-hidden="true"></div>
+  <div class="grid-glow" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="หน้าแรก Creative Commons 3D">
+        <span class="brand-mark"><span>✧</span></span>
+        <span><strong>CC FLIP<span class="brand-3d">3D</span></strong><small>INTERACTIVE CLASSROOM</small></span>
+      </a>
+      <div class="top-right">
+        <span class="topic-tag">ว33281 · เทคโนโลยี 4</span>
+        <button id="soundBtn" class="icon-button" type="button" title="เปิดหรือปิดเสียง" aria-label="เปิดเสียงเกม">🔇</button>
+        <button id="fullscreenBtn" class="icon-button" type="button" title="เต็มหน้าจอ" aria-label="เปิดเต็มหน้าจอ">⛶</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-label="แนะนำเกม">
+        <div class="intro-copy">
+          <div class="eyebrow"><span class="pulse"></span> READY TO PLAY · เกมการเรียนรู้แบบโต้ตอบ</div>
+          <h1>เปิดป้าย <span class="gradient-text">ไขปริศนา</span><br />Creative Commons</h1>
+          <p>เปิดแผ่นป้าย 3 มิติ ค้นหาความหมายของสัญลักษณ์ลิขสิทธิ์ หรือท้าทายความรู้ด้วยคำถามสุ่มไม่ซ้ำ</p>
+        </div>
+        <div class="intro-decor" aria-hidden="true"><div class="deco-ring"><div class="floating-cube"><span>CC</span></div></div><div class="sparkle d1">✳</div><div class="sparkle d2">✦</div></div>
+      </section>
+
+      <div class="game-layout">
+        <section class="game-panel" aria-label="กระดานเกม">
+          <div class="panel-head">
+            <div class="round-label"><span class="status-dot"></span> <span id="gameStatus">โหมดเปิดป้ายภาพปริศนา</span></div>
+            <div class="round-count" id="roundInfo">ROUND 01 / 04</div>
+          </div>
+          <div class="board-scene" id="boardScene">
+            <div class="board-frame" id="boardFrame">
+              <div class="answer-art" id="answerArt" aria-hidden="true">
+                <div class="art-topline">CREATIVE COMMONS · IDENTIFY THE LICENSE</div>
+                <div class="art-symbols" id="artSymbols"><span class="symbol-token">CC</span><span class="symbol-token">BY</span></div>
+                <div class="art-title" id="artTitle">CC BY</div>
+                <div class="art-subtitle" id="artSubtitle">ให้เครดิตผู้สร้างสรรค์ผลงาน</div>
+                <div class="art-bottomline">✦ สังเกตสัญลักษณ์ แล้วตอบให้ถูกต้อง ✦</div>
+              </div>
+              <div class="tiles" id="tiles" aria-label="ป้ายเกมหมายเลข 1 ถึง 36"></div>
+              <div id="boardComplete" class="board-complete" hidden><span>✦</span> เปิดครบแล้ว! <span>✦</span></div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="progress-wrap"><span id="progressText">เปิดแล้ว 0 / 36 ป้าย</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+            <span class="keyboard-hint">TIP: คลิกป้ายเพื่อเปิด · กด F เต็มจอ</span>
+          </div>
+        </section>
+
+        <aside class="control-panel" aria-label="เครื่องมือควบคุมเกม">
+          <div class="side-card mode-card">
+            <div class="section-kicker">01 / GAME MODE</div>
+            <h2>เลือกรูปแบบเกม</h2>
+            <div class="mode-switch" role="group" aria-label="เลือกโหมดเกม">
+              <button id="revealMode" class="mode-btn active" type="button" aria-pressed="true"><span class="mode-icon">▦</span><span>เปิดภาพปริศนา<small>ทายภาพที่ซ่อนอยู่</small></span></button>
+              <button id="quizMode" class="mode-btn" type="button" aria-pressed="false"><span class="mode-icon">❔</span><span>คำถามสุ่ม<small>สุ่มข้อสอบไม่ซ้ำ</small></span></button>
+            </div>
+          </div>
+          <div class="side-card stat-card">
+            <div class="section-kicker">02 / LIVE STATUS</div>
+            <div class="stats-grid">
+              <div class="stat"><span>คะแนน</span><strong id="score">0</strong><small>POINTS</small></div>
+              <div class="stat"><span>เปิดป้ายแล้ว</span><strong id="openedCount">0<span class="subnum">/36</span></strong><small>TILES</small></div>
+              <div class="stat"><span>เวลา</span><strong id="timer">00:00</strong><small>SESSION</small></div>
+              <div class="stat"><span>รอบปัจจุบัน</span><strong id="roundNumber">01</strong><small>ROUND</small></div>
+            </div>
+          </div>
+          <div class="side-card control-card">
+            <div class="section-kicker">03 / TEACHER CONTROL</div>
+            <h2>ควบคุมกิจกรรม</h2>
+            <button id="hintBtn" class="action-button secondary" type="button"><span>💡</span> ใบ้คำตอบ <span class="btn-arrow">↗</span></button>
+            <div class="hint-box" id="hintBox" hidden></div>
+            <button id="revealAllBtn" class="action-button secondary" type="button"><span>👁</span> เฉลยทั้งภาพ <span class="btn-arrow">↗</span></button>
+            <button id="nextRoundBtn" class="action-button primary" type="button"><span>➜</span> รอบถัดไป <span class="btn-arrow">↗</span></button>
+            <button id="resetBtn" class="action-button ghost" type="button"><span>↻</span> เริ่มเกมใหม่ <span class="btn-arrow">↗</span></button>
+          </div>
+          <p class="privacy-note"><span>●</span> ไม่ต้องล็อกอิน · ไม่มีฐานข้อมูล · คำถามไม่ซ้ำภายในเกม</p>
+        </aside>
+      </div>
+    </main>
+    <footer class="footer"><span>ออกแบบสำหรับการสาธิตสอน · จริยธรรมในการใช้เทคโนโลยี · ม.6</span><span>ตรวจเงื่อนไขจริงได้ที่ <a href="https://creativecommons.org/licenses/" target="_blank" rel="noopener noreferrer">Creative Commons ↗</a></span></footer>
+  </div>
+
+  <div class="modal-backdrop" id="questionModal" hidden>
+    <div class="question-dialog" role="dialog" aria-modal="true" aria-labelledby="questionTitle">
+      <div class="dialog-top"><span class="dialog-badge">✦ RANDOM QUESTION</span><button id="closeModalBtn" class="dialog-close" type="button" aria-label="ปิดคำถาม">✕</button></div>
+      <div class="dialog-meta"><span id="questionCategory">Creative Commons</span><span id="questionNumber">QUESTION 01</span></div>
+      <h2 id="questionTitle">คำถามจะปรากฏตรงนี้</h2>
+      <div id="answerOptions" class="answer-options"></div>
+      <div id="answerFeedback" class="answer-feedback" hidden></div>
+      <div class="dialog-actions"><button id="continueBtn" class="action-button primary" type="button" hidden>เล่นต่อ →</button></div>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="confetti" class="confetti" aria-hidden="true"></div>
+  <script>
+function shuffle(input, random = Math.random) {
+  const result = [...input];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function selectUnique(items, count, random = Math.random) {
+  if (count > items.length) throw new RangeError(`ต้องการ ${count} ข้อ แต่มีเพียง ${items.length} ข้อ`);
+  return shuffle(items, random).slice(0, count);
+}
+
+function gradeAnswer(question, chosenIndex) {
+  return chosenIndex === question.answer;
+}
+
+const REVEAL_CARDS = [
+  { label: 'CC BY', name: 'Attribution', subtitle: 'ให้เครดิตผู้สร้างผลงาน', tokens: ['CC', 'BY'], tone: 'cyan', hint: 'ผลงานนี้ดัดแปลงและใช้เชิงพาณิชย์ได้ หากทำตามเงื่อนไข' },
+  { label: 'CC BY-SA', name: 'ShareAlike', subtitle: 'เผยแพร่งานดัดแปลงแบบเดียวกัน', tokens: ['CC', 'BY', 'SA'], tone: 'violet', hint: 'งานใหม่ที่ดัดแปลงต้องมีเงื่อนไขแบบเดียวกัน' },
+  { label: 'CC BY-NC', name: 'NonCommercial', subtitle: 'ไม่ใช่เพื่อวัตถุประสงค์ทางการค้า', tokens: ['CC', 'BY', 'NC'], tone: 'pink', hint: 'มีเงื่อนไขว่าต้องไม่ใช้ในเชิงพาณิชย์' },
+  { label: 'CC BY-ND', name: 'NoDerivatives', subtitle: 'ไม่เผยแพร่งานที่ดัดแปลง', tokens: ['CC', 'BY', 'ND'], tone: 'amber', hint: 'เผยแพร่ได้เมื่อไม่ดัดแปลงต้นฉบับ' },
+  { label: 'CC BY-NC-SA', name: 'NonCommercial · ShareAlike', subtitle: 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ แชร์แบบเดียวกัน', tokens: ['CC', 'BY', 'NC', 'SA'], tone: 'cyan', hint: 'เงื่อนไขสามส่วน: เครดิต ไม่ค้า และแชร์แบบเดียวกัน' },
+  { label: 'CC BY-NC-ND', name: 'NonCommercial · NoDerivatives', subtitle: 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ ไม่เผยแพร่งานดัดแปลง', tokens: ['CC', 'BY', 'NC', 'ND'], tone: 'pink', hint: 'เงื่อนไขจำกัดทั้งด้านเชิงพาณิชย์และการดัดแปลง' },
+  { label: 'CC0', name: 'Public Domain Dedication', subtitle: 'สละสิทธิ์เท่าที่กฎหมายอนุญาต', tokens: ['CC0'], tone: 'amber', hint: 'เจ้าของมุ่งเปิดให้ใช้ผลงานอย่างเสรีที่สุด' },
+  { label: 'BY', name: 'Attribution', subtitle: 'ระบุที่มา', tokens: ['BY'], tone: 'cyan', hint: 'เป็นเงื่อนไขพื้นฐานของ CC ทั้งหกรูปแบบหลัก' },
+  { label: 'SA', name: 'ShareAlike', subtitle: 'เผยแพร่แบบเดียวกัน', tokens: ['SA'], tone: 'violet', hint: 'ปรับแต่งแล้วแบ่งปันภายใต้ใบอนุญาตแบบเดียวกัน' },
+  { label: 'NC', name: 'NonCommercial', subtitle: 'ไม่ใช้เชิงพาณิชย์', tokens: ['NC'], tone: 'pink', hint: 'คำนึงถึงวัตถุประสงค์ทางการค้าของการนำไปใช้' },
+  { label: 'ND', name: 'NoDerivatives', subtitle: 'ไม่แบ่งปันงานดัดแปลง', tokens: ['ND'], tone: 'amber', hint: 'หากต้องการตัดต่อและเผยแพร่ อาจต้องขออนุญาตเพิ่ม' },
+  { label: 'Creative Commons', name: 'Open Licenses', subtitle: 'สัญญาอนุญาตให้ใช้ผลงานภายใต้เงื่อนไข', tokens: ['CC'], tone: 'violet', hint: 'เครื่องมือระบุสิทธิและเงื่อนไขการใช้ผลงาน' },
+];
+
+// Creative Commons 4.0 / digital citizenship questions for upper-secondary learners.
+// To add a question: q('คำถาม', ['ตัวเลือก A', 'ตัวเลือก B', 'ตัวเลือก C', 'ตัวเลือก D'], 0..3, 'คำอธิบาย', 'หมวดหมู่')
+const q = (text, options, answer, explanation, category = 'Creative Commons') => ({ text, options, answer, explanation, category });
+const QUESTIONS = [
+  q('สัญลักษณ์ BY ใน Creative Commons หมายถึงอะไร?', ['ระบุที่มาและให้เครดิตเจ้าของผลงาน', 'ห้ามเผยแพร่', 'ห้ามนำไปใช้สอน', 'ใช้ได้เฉพาะโรงเรียน'], 0, 'BY (Attribution) กำหนดให้ระบุที่มาและให้เครดิตตามเงื่อนไขสัญญาอนุญาต'),
+  q('สัญลักษณ์ NC มีความหมายตรงกับข้อใด?', ['ต้องนำไปขาย', 'ห้ามใช้เพื่อวัตถุประสงค์ทางการค้า', 'ห้ามแก้ไข', 'ต้องแชร์ด้วยเงื่อนไขเดียวกัน'], 1, 'NC (NonCommercial) จำกัดการใช้งานที่มีวัตถุประสงค์เชิงพาณิชย์'),
+  q('สัญลักษณ์ ND ในสัญญาอนุญาตหมายถึงอะไร?', ['ต้องเปลี่ยนชื่อไฟล์', 'ห้ามเปิดดู', 'ห้ามเผยแพร่ผลงานที่ดัดแปลง', 'นำไปขายได้เสมอ'], 2, 'ND (NoDerivatives) ไม่อนุญาตให้แบ่งปันผลงานที่ดัดแปลง แม้ยังใช้ต้นฉบับตามเงื่อนไขอื่นได้'),
+  q('สัญลักษณ์ SA หมายถึงข้อใด?', ['ลบชื่อผู้สร้างได้', 'ห้ามนักเรียนใช้', 'ใช้ได้เมื่อสมัครสมาชิก', 'เผยแพร่งานดัดแปลงด้วยสัญญาอนุญาตแบบเดียวกัน'], 3, 'SA (ShareAlike) กำหนดให้งานดัดแปลงใช้สัญญาอนุญาตเดียวกันหรือที่เข้ากันได้'),
+  q('CC BY อนุญาตให้ดัดแปลงผลงานได้หรือไม่?', ['ได้ หากระบุที่มาและปฏิบัติตามเงื่อนไข', 'ไม่ได้ทุกกรณี', 'ได้เฉพาะวันหยุด', 'ได้เฉพาะภาพถ่าย'], 0, 'CC BY อนุญาตให้คัดลอก แจกจ่าย และดัดแปลงได้ รวมถึงเชิงพาณิชย์ เมื่อระบุที่มา'),
+  q('CC BY-NC อนุญาตให้ใช้ผลงานในลักษณะใด?', ['ใช้เชิงพาณิชย์โดยไม่ให้เครดิต', 'ใช้ที่ไม่ใช่เชิงพาณิชย์โดยให้เครดิต', 'ห้ามดูผลงาน', 'ใช้ได้โดยไม่ต้องดูสัญญา'], 1, 'BY-NC ต้องให้เครดิต และการใช้ต้องไม่เป็นเชิงพาณิชย์'),
+  q('CC BY-ND เน้นเงื่อนไขสำคัญเรื่องใด?', ['ห้ามดาวน์โหลดต้นฉบับ', 'ห้ามให้เครดิต', 'ไม่อนุญาตให้เผยแพร่ฉบับดัดแปลง', 'ต้องเก็บเป็นความลับ'], 2, 'ผลงานที่เผยแพร่ต่อภายใต้ BY-ND ต้องไม่เป็นฉบับดัดแปลง และต้องระบุที่มา'),
+  q('CC BY-SA มีเงื่อนไขเพิ่มเติมจาก BY อย่างไร?', ['ไม่ให้ลงออนไลน์', 'ต้องใช้ฟอนต์เดียวกัน', 'ห้ามทำวิดีโอ', 'ต้องใช้เงื่อนไขเดียวกันกับงานดัดแปลง'], 3, 'BY-SA บังคับ ShareAlike เมื่อนำผลงานไปดัดแปลงและเผยแพร่'),
+  q('CC BY-NC-SA เหมาะกับข้อใดมากที่สุด?', ['งานดัดแปลงที่ไม่ใช่เชิงพาณิชย์ ให้เครดิต และใช้เงื่อนไขเดียวกัน', 'งานขายสินค้าโดยไม่ให้เครดิต', 'งานที่ห้ามดัดแปลงทุกกรณี', 'งานที่เจ้าของห้ามเปิดดู'], 0, 'BY-NC-SA รวมเงื่อนไข Attribution, NonCommercial และ ShareAlike'),
+  q('CC BY-NC-ND มีข้อจำกัดใด?', ['ต้องดัดแปลงก่อนแชร์', 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ และไม่แชร์งานดัดแปลง', 'แชร์เชิงพาณิชย์โดยไม่ให้เครดิต', 'ใช้ได้เฉพาะวิชาศิลปะ'], 1, 'BY-NC-ND เป็นรูปแบบที่จำกัดการใช้งานมากในกลุ่ม CC 4.0'),
+  q('เครื่องหมาย CC0 สื่อถึงอะไร?', ['สงวนสิทธิ์ทุกอย่าง', 'ให้ใช้เฉพาะในประเทศ', 'ผู้ให้ผลงานสละสิทธิ์ให้มากที่สุดเท่าที่กฎหมายอนุญาต', 'ห้ามใช้ออนไลน์'], 2, 'CC0 เป็นเครื่องมืออุทิศผลงานสู่สาธารณสมบัติเท่าที่กฎหมายรองรับ'),
+  q('ข้อความ “All rights reserved” โดยทั่วไปหมายถึงอะไร?', ['เป็น CC BY', 'เป็น CC0', 'ใช้ได้ทุกกรณี', 'ยังสงวนสิทธิ์ ต้องตรวจสอบการอนุญาตก่อนใช้'], 3, 'อย่าสรุปว่าผลงานออนไลน์ทุกชิ้นนำกลับไปใช้ซ้ำได้โดยไม่มีข้อจำกัด'),
+  q('นักเรียนนำภาพ CC BY มาใส่รายงาน ควรทำอย่างไร?', ['ให้เครดิตผู้สร้างและข้อมูลสัญญาอนุญาต', 'ลบลายน้ำเสมอ', 'อ้างว่าเป็นภาพที่ตัวเองถ่าย', 'ไม่ต้องทำอะไร'], 0, 'การระบุที่มาที่ดีประกอบด้วยผู้สร้าง ชื่อผลงาน/แหล่งที่มา สัญญาอนุญาต และระบุการแก้ไขเมื่อมี'),
+  q('ข้อใดเป็นตัวอย่างการให้เครดิตที่เหมาะสมที่สุด?', ['ภาพจากอินเทอร์เน็ต', 'ภาพโดย A / แหล่งที่มา / CC BY 4.0 / ดัดแปลงสีแล้ว', 'รูปสวยมาก', 'ไม่ทราบผู้สร้างก็ไม่ต้องเขียน'], 1, 'ควรระบุผู้สร้าง แหล่งที่มา สัญญาอนุญาต และการดัดแปลงตามความเหมาะสม'),
+  q('เมื่อปรับสีภาพ CC BY ที่นำมาใช้ ควรทำอย่างไร?', ['อ้างเป็นภาพตัวเอง', 'ปกปิดที่มา', 'แจ้งว่ามีการดัดแปลงพร้อมให้เครดิต', 'เปลี่ยนเป็น CC0 โดยอัตโนมัติ'], 2, 'เงื่อนไข Attribution กำหนดให้ระบุว่ามีการเปลี่ยนแปลงผลงานเมื่อทำได้'),
+  q('ภาพที่พบใน Google Images ใช้ทำสื่อได้ทันทีหรือไม่?', ['ได้เสมอ', 'ได้เฉพาะภาพขนาดเล็ก', 'ได้ถ้ามีสีสวย', 'ต้องตรวจสิทธิ์และเงื่อนไขจากต้นทางก่อน'], 3, 'ผลค้นหาเป็นเพียงช่องทางค้นพบภาพ ไม่ใช่หลักฐานว่าใช้ซ้ำได้เสมอ'),
+  q('หากสื่อมีสัญลักษณ์ BY-SA สามารถทำโปสเตอร์ดัดแปลงได้หรือไม่?', ['ได้ โดยให้เครดิตและเผยแพร่งานดัดแปลงตามเงื่อนไข SA', 'ไม่ได้โดยเด็ดขาด', 'ได้แต่ห้ามบอกผู้สร้าง', 'ได้เฉพาะภาพขาวดำ'], 0, 'BY-SA เปิดให้ดัดแปลงได้โดยต้องปฏิบัติตาม Attribution และ ShareAlike'),
+  q('เมื่อนำภาพ CC BY-ND ไปตัดต่อเป็นภาพใหม่แล้วเผยแพร่ ข้อใดถูก?', ['ทำได้โดยไม่ต้องให้เครดิต', 'ขัดกับเงื่อนไข ND เมื่อแบ่งปันงานดัดแปลง', 'ต้องขายภาพให้ได้', 'ไม่เกี่ยวกับลิขสิทธิ์'], 1, 'เงื่อนไข ND ไม่อนุญาตการเผยแพร่เวอร์ชันดัดแปลง'),
+  q('หากพบข้อความ “Public Domain” ควรทำอะไรเพิ่มเติม?', ['ลบชื่อผู้สร้างทันที', 'แปลงเป็นใบอนุญาต NC', 'ตรวจสอบความถูกต้องของสถานะและกฎหมายที่เกี่ยวข้อง', 'ใช้ได้โดยไม่มีข้อควรระวังทุกกรณี'], 2, 'สถานะสาธารณสมบัติอาจต่างตามเขตอำนาจและตัวผลงาน จึงควรตรวจสอบ'),
+  q('การใส่เครดิต “ขอบคุณ Google” เมื่อใช้ภาพค้นเจอเพียงพอหรือไม่?', ['เพียงพอเสมอ', 'เพียงพอถ้าอยู่ท้ายหน้า', 'เพียงพอถ้าใช้ในโรงเรียน', 'ไม่เพียงพอ ควรระบุเจ้าของผลงานและใบอนุญาต'], 3, 'Google เป็นเครื่องมือค้นหา ไม่จำเป็นต้องเป็นเจ้าของสิทธิ์ของภาพ'),
+  q('ข้อใดเป็นวิธีใช้เทคโนโลยีอย่างมีจริยธรรม?', ['ตรวจสิทธิ์ก่อนนำสื่อคนอื่นมาใช้', 'คัดลอกโดยไม่อ้างอิง', 'เผยแพร่ข้อมูลส่วนตัวของเพื่อน', 'ใส่ชื่อผู้สร้างเป็นของตน'], 0, 'การเคารพลิขสิทธิ์และข้อมูลส่วนบุคคลเป็นส่วนหนึ่งของจริยธรรมดิจิทัล', 'พลเมืองดิจิทัล'),
+  q('นักเรียนจะเผยแพร่วิดีโอที่ใช้เพลงของผู้อื่น ควรทำสิ่งใดก่อน?', ['ใส่เพลงให้ดังขึ้น', 'ตรวจใบอนุญาตเพลงหรือขออนุญาตตามความจำเป็น', 'เปลี่ยนชื่อเพลง', 'ตัดเพลงให้เหลือ 10 วินาทีแล้วใช้ได้เสมอ'], 1, 'ความยาวเพลงที่ใช้ไม่ได้เป็นหลักประกันว่าการใช้นั้นได้รับอนุญาต', 'พลเมืองดิจิทัล'),
+  q('การเคารพทรัพย์สินทางปัญญาหมายถึงอะไร?', ['ใช้ทุกอย่างฟรี', 'บังคับคนอื่นให้แชร์', 'รับรู้และปฏิบัติตามสิทธิ์ของผู้สร้างสรรค์', 'ห้ามอ้างอิงงานวิชาการ'], 2, 'ทรัพย์สินทางปัญญาเกี่ยวข้องกับสิทธิของผู้สร้างสรรค์ผลงาน', 'พลเมืองดิจิทัล'),
+  q('ข้อใดเป็นการละเมิดจริยธรรมดิจิทัลอย่างชัดเจน?', ['ขออนุญาตนำภาพไปใช้', 'ใช้ภาพ CC0 พร้อมตรวจแหล่งที่มา', 'อ้างอิงแหล่งข้อมูล', 'นำงานคนอื่นมาอ้างว่าเป็นของตน'], 3, 'การแอบอ้างผลงานของผู้อื่นขัดกับจริยธรรมการใช้ข้อมูล', 'พลเมืองดิจิทัล'),
+  q('เหตุใดจึงควรตรวจสอบแหล่งข้อมูลก่อนแบ่งปัน?', ['ลดโอกาสแพร่กระจายข้อมูลผิดพลาด', 'ทำให้ไฟล์ใหญ่ขึ้น', 'ทำให้การโพสต์เร็วขึ้น', 'ทำให้ไม่ต้องอ้างอิง'], 0, 'ความถูกต้องของข้อมูลมีผลต่อผู้อื่นและความน่าเชื่อถือ', 'พลเมืองดิจิทัล'),
+  q('หากเพื่อนส่งภาพส่วนตัวของคนอื่นมา ควรทำอย่างไร?', ['เผยแพร่ต่อทันที', 'หลีกเลี่ยงการเผยแพร่โดยไม่ได้รับอนุญาต', 'ใส่ฟิลเตอร์ก่อนส่ง', 'โพสต์โดยไม่ใส่ชื่อ'], 1, 'ควรเคารพสิทธิความเป็นส่วนตัวของบุคคล', 'พลเมืองดิจิทัล'),
+  q('เหตุผลสำคัญที่สัญลักษณ์ Creative Commons มีประโยชน์คืออะไร?', ['แทนคุณภาพภาพถ่าย', 'ใช้แทนชื่อเจ้าของเว็บ', 'บอกเงื่อนไขการอนุญาตใช้ผลงานอย่างชัดเจน', 'การันตีว่าผลงานฟรีทุกแบบ'], 2, 'Creative Commons ช่วยให้ผู้ใช้รู้ขอบเขตที่ผู้สร้างอนุญาต'),
+  q('หากต้องการใช้รูปประกอบบทเรียนและดัดแปลง ควรหลีกเลี่ยงสัญลักษณ์ใด?', ['BY', 'SA', 'CC', 'ND'], 3, 'ND จำกัดการแบ่งปันผลงานที่มีการดัดแปลง'),
+  q('การใช้ภาพที่มี NC ในโฆษณาสินค้าควรทำอย่างไร?', ['ขออนุญาตเพิ่มเติมจากเจ้าของสิทธิ์ก่อน', 'ใช้ทันทีเพราะมีเครดิต', 'ลบสัญลักษณ์ NC', 'ใส่ข้อความว่าเพื่อการศึกษาแล้วจบ'], 0, 'การใช้ในโฆษณาอาจเป็นการใช้เชิงพาณิชย์ ซึ่งเกินเงื่อนไข NC'),
+  q('Creative Commons สร้างขึ้นเพื่อวัตถุประสงค์หลักใด?', ['บังคับให้ผลงานทุกชิ้นใช้ฟรี', 'ทำให้การแบ่งปันและใช้ซ้ำมีเงื่อนไขที่เข้าใจง่าย', 'ยกเลิกกฎหมายทุกฉบับ', 'เปลี่ยนข้อมูลส่วนตัวเป็นสาธารณะ'], 1, 'CC เป็นเครื่องมือมาตรฐานสำหรับกำหนดสิทธิ์การใช้ผลงาน'),
+  q('ใครเป็นผู้เลือกใช้สัญญาอนุญาต CC ให้ผลงานของตน?', ['ผู้แชร์คนสุดท้าย', 'ผู้ค้นหาใน Google', 'ผู้มีสิทธิ์อนุญาตในผลงานนั้น', 'ครูทุกคน'], 2, 'ผู้มีอำนาจอนุญาตใช้ผลงานสามารถกำหนดเงื่อนไข CC ได้'),
+  q('ใบอนุญาต CC โดยทั่วไปสามารถเปลี่ยนย้อนหลังเพื่อตัดสิทธิ์ที่ให้ไปแล้วหรือไม่?', ['ได้เสมอ', 'ได้ถ้ามีผู้ชมมาก', 'ได้ถ้าเปลี่ยนสี', 'โดยทั่วไปสิทธิ์ที่ได้รับถูกต้องตามเงื่อนไขเดิมยังคงอยู่'], 3, 'สัญญาอนุญาต CC โดยทั่วไปให้สิทธิ์แบบเพิกถอนไม่ได้ หากผู้รับยังปฏิบัติตามเงื่อนไข'),
+  q('ข้อใดตรงกับ BY-NC-SA มากที่สุด?', ['ระบุที่มา + ไม่ใช้เชิงพาณิชย์ + แชร์งานดัดแปลงแบบเดียวกัน', 'ไม่ต้องระบุที่มา + ใช้เพื่อการค้า', 'ห้ามดัดแปลงทุกกรณี', 'ไม่ต้องบอกเงื่อนไข'], 0, 'เป็นสามเงื่อนไขหลักของ BY-NC-SA'),
+  q('ข้อใดตรงกับ BY-NC-ND มากที่สุด?', ['ให้เครดิต + ใช้เชิงพาณิชย์ได้เสมอ', 'ให้เครดิต + ไม่ใช้เชิงพาณิชย์ + ไม่แชร์งานดัดแปลง', 'ไม่ต้องให้เครดิต', 'ต้องดัดแปลงก่อนแชร์'], 1, 'BY-NC-ND เป็นสัญญาอนุญาตที่กำหนดสามเงื่อนไขร่วมกัน'),
+  q('CC BY 4.0 แตกต่างจาก CC0 อย่างไร?', ['ทั้งคู่ห้ามแบ่งปัน', 'CC0 ต้องระบุที่มาเสมอโดยข้อกำหนดเดียวกับ BY', 'CC BY กำหนดให้ระบุที่มา ส่วน CC0 มุ่งสละสิทธิ์ให้มากที่สุด', 'CC BY ใช้ได้เฉพาะรูปภาพ'], 2, 'CC BY เป็นใบอนุญาตที่ต้องให้เครดิต ส่วน CC0 เป็นเครื่องมือสละสิทธิ์เท่าที่ทำได้'),
+  q('เมื่อใช้ผลงาน CC ที่มีเครื่องหมาย SA แล้วดัดแปลง ผู้ใช้ควรทำอย่างไร?', ['ลบเงื่อนไขเดิม', 'ปิดข้อมูลต้นฉบับ', 'ห้ามพูดถึงผู้สร้าง', 'ใช้สัญญาอนุญาตที่ตรงตามข้อกำหนด ShareAlike'], 3, 'หลักของ SA คือการส่งต่อสิทธิ์ภายใต้เงื่อนไขที่เหมาะสม'),
+  q('นักเรียนพบภาพ CC BY ในเว็บไซต์ จะทำปกงานได้หรือไม่?', ['ได้ตามเงื่อนไข โดยให้เครดิตและระบุการดัดแปลง', 'ห้ามใช้ภาพในรายงาน', 'ได้แต่ห้ามบอกชื่อผู้สร้าง', 'ได้เฉพาะเมื่อซื้อภาพ'], 0, 'ผู้ใช้ต้องตรวจเวอร์ชันใบอนุญาตและปฏิบัติตามเงื่อนไข'),
+  q('เลือกใช้สื่อใดสำหรับงานที่ต้องการตัดต่อและเผยแพร่ต่อได้ง่ายที่สุด?', ['สื่อที่ไม่มีข้อมูลเจ้าของเลย', 'สื่อ CC BY ที่ตรวจสอบใบอนุญาตได้', 'ภาพที่มีป้าย All rights reserved โดยไม่ขออนุญาต', 'ภาพที่เพื่อนส่งมาโดยไม่มีที่มา'], 1, 'ใบอนุญาต CC BY ที่ถูกต้องเปิดให้ดัดแปลงและเผยแพร่เมื่อให้เครดิต'),
+  q('ถ้าเจ้าของงานระบุ BY และ NC พร้อมกัน ต้องทำอย่างไร?', ['เลือกทำข้อใดข้อหนึ่ง', 'ไม่ต้องทำทั้งสองข้อ', 'ทำตามทั้งเงื่อนไขการให้เครดิตและไม่ใช้เชิงพาณิชย์', 'เปลี่ยนเป็น ND'], 2, 'เงื่อนไขหลายตัวอักษรต้องพิจารณาร่วมกัน'),
+  q('ข้อใดเป็นมารยาททางดิจิทัลที่เหมาะสม?', ['เผยแพร่ภาพเพื่อนโดยไม่ถาม', 'โพสต์คำหยาบเมื่อเห็นต่าง', 'อ้างผลงานคนอื่นเป็นของตน', 'แสดงความคิดเห็นด้วยเหตุผลและเคารพผู้อื่น'], 3, 'การสื่อสารอย่างเคารพช่วยสร้างสังคมออนไลน์ที่ปลอดภัย', 'พลเมืองดิจิทัล'),
+  q('นักเรียนได้รับอนุญาตให้ใช้ภาพในงานหนึ่ง ควรสรุปอย่างไร?', ['ตรวจขอบเขตการอนุญาตสำหรับงานอื่นก่อนใช้ซ้ำ', 'ใช้ภาพนั้นได้ทุกวัตถุประสงค์ทันที', 'ยกสิทธิ์ให้เพื่อนได้เสมอ', 'ลบเครดิตได้'], 0, 'ขอบเขตการอนุญาตอาจจำกัดตามข้อตกลง จึงควรตรวจการใช้แต่ละครั้ง'),
+  q('การใส่ลิงก์ใบอนุญาต CC ในเครดิตมีข้อดีใด?', ['ทำให้ผู้ใช้ซ่อนเครดิตได้', 'ช่วยให้ผู้อ่านตรวจเงื่อนไขได้', 'ทำให้ภาพกลายเป็น CC0', 'เปลี่ยนผู้สร้างผลงาน'], 1, 'การอ้างลิงก์ช่วยให้ตรวจสอบต้นทางของเงื่อนไขได้'),
+  q('ข้อใดเป็นการเรียนรู้เรื่องลิขสิทธิ์อย่างมีวิจารณญาณ?', ['จำสีของโลโก้อย่างเดียว', 'กดดาวน์โหลดให้เร็วที่สุด', 'อ่านเงื่อนไขใบอนุญาตแล้ววิเคราะห์สถานการณ์การใช้จริง', 'พึ่งความเคยชินอย่างเดียว'], 2, 'เป้าหมายคือใช้สิทธิ์ของผู้อื่นได้อย่างเหมาะสมตามเงื่อนไข'),
+  q('กรณีต้องการเผยแพร่เพลงดัดแปลง ควรระวังเงื่อนไขใดมากที่สุด?', ['CC0', 'BY', 'CC', 'ND'], 3, 'หากได้รับอนุญาตแบบ ND การเผยแพร่งานดัดแปลงจะไม่อยู่ในสิทธิ์ที่อนุญาต'),
+  q('คำว่า “Attribution” ใน CC สอดคล้องกับการกระทำใด?', ['ให้เครดิตและอ้างที่มาของผลงาน', 'ห้ามคัดลอกทุกกรณี', 'ให้เงินผู้สร้างเสมอ', 'ห้ามนำไปใช้ในการเรียน'], 0, 'Attribution หมายถึงการให้เครดิต'),
+  q('แหล่งข้อมูลใดเหมาะกับการตรวจเงื่อนไข CC ของภาพมากที่สุด?', ['คำบอกเล่าที่ไม่มีแหล่ง', 'หน้าต้นทางของผลงานและลิงก์ใบอนุญาต', 'ชื่อไฟล์เพียงอย่างเดียว', 'สีของรูป'], 1, 'หน้าแหล่งที่มาและเงื่อนไขใบอนุญาตให้ข้อมูลที่น่าเชื่อถือกว่า'),
+  q('หากภาพมีเงื่อนไข BY-NC-ND ผู้เรียนต้องการตัดต่อแล้วเผยแพร่ ควรทำอย่างไร?', ['ตัดต่อแล้วเผยแพร่ทันที', 'ลบชื่อเจ้าของ', 'ขออนุญาตเพิ่มเติมหรือเลือกภาพที่อนุญาตให้ดัดแปลง', 'โพสต์ภาพโดยไม่ระบุที่มา'], 2, 'เพราะ ND ไม่อนุญาตให้แชร์งานดัดแปลงภายใต้ใบอนุญาตดังกล่าว'),
+  q('การใช้ผลงานที่มี CC มักต้องตรวจเรื่องใดเพิ่มเติม?', ['ขนาดหน้าจอเท่านั้น', 'สีพื้นหลังเท่านั้น', 'จำนวนผู้ติดตามเท่านั้น', 'สิทธิของบุคคลในภาพ เครื่องหมายการค้า และเงื่อนไขอื่นที่เกี่ยวข้อง'], 3, 'ใบอนุญาต CC ไม่ได้ครอบคลุมสิทธิ์ทั้งหมด เช่น ความเป็นส่วนตัวของบุคคล'),
+  q('เหตุใดการให้เครดิตจึงสำคัญต่อการสร้างสรรค์ผลงาน?', ['เคารพผู้สร้างและเปิดทางให้ผู้อื่นตรวจสอบแหล่งที่มา', 'ทำให้ภาพไฟล์เล็กลง', 'เพิ่มความเร็วเน็ต', 'ยกเลิกลิขสิทธิ์ทั้งหมด'], 0, 'การให้เครดิตส่งเสริมความรับผิดชอบและการเคารพทรัพย์สินทางปัญญา'),
+  q('หากใช้แหล่งข้อมูลออนไลน์หลายแห่ง ควรทำอย่างไร?', ['รวมเครดิตไว้เป็นชื่อของตน', 'จัดทำรายการที่มาให้ตรวจสอบได้', 'เลือกใส่ชื่อที่จำง่าย', 'ไม่ต้องระบุเนื่องจากมีหลายแหล่ง'], 1, 'การอ้างอิงแหล่งที่มาอย่างเป็นระบบช่วยเพิ่มความน่าเชื่อถือ'),
+  q('กรณีใดเหมาะกับการใช้คำถามท้ายกิจกรรมเปิดแผ่นป้าย?', ['ใครกดเร็วที่สุดเท่านั้น', 'ใครจำสีได้มากกว่า', 'ถ้าใช้ภาพนี้ทำวิดีโอขายสินค้าได้หรือไม่ เพราะอะไร', 'ใครนั่งหน้าห้อง'], 2, 'คำถามเชื่อมสถานการณ์จริงช่วยวัดความเข้าใจเชิงประยุกต์'),
+  q('ข้อใดช่วยให้การสื่อสารบนโลกออนไลน์ปลอดภัยขึ้น?', ['เปิดเผยรหัสผ่านกับเพื่อน', 'แชร์ตำแหน่งตลอดเวลา', 'คลิกลิงก์ที่ไม่รู้จักทุกครั้ง', 'ตรวจสอบเนื้อหาและรักษาข้อมูลส่วนบุคคลก่อนเผยแพร่'], 3, 'ความปลอดภัยดิจิทัลเป็นส่วนหนึ่งของการใช้เทคโนโลยีอย่างมีจริยธรรม', 'พลเมืองดิจิทัล'),
+  q('หากนำภาพที่มีใบอนุญาต CC BY มาใส่สไลด์ ควรแสดงอะไร?', ['ชื่อผู้สร้างและข้อมูลใบอนุญาตในตำแหน่งที่เหมาะสม', 'เฉพาะโลโก้ PowerPoint', 'เฉพาะวันที่นำเสนอ', 'เฉพาะชื่อห้องเรียน'], 0, 'ควรทำให้ผู้ชมตรวจสอบที่มาของภาพและใบอนุญาตได้'),
+  q('เหตุใดจึงต้องอ่านใบอนุญาตฉบับเต็มเมื่อมีข้อสงสัย?', ['เพราะชื่อไฟล์ไม่สวย', 'เพราะข้อความย่ออาจไม่ครอบคลุมเงื่อนไขหรือข้อยกเว้นทั้งหมด', 'เพราะภาพทุกรูปเหมือนกัน', 'เพราะเครื่องหมาย CC ห้ามใช้เสมอ'], 1, 'ป้ายสัญลักษณ์เป็นเพียงสรุป ควรตรวจข้อกำหนดต้นฉบับเมื่อจำเป็น'),
+];
+
+
+
+
+const $ = (id) => document.getElementById(id);
+const els = {
+  tiles: $('tiles'), board: $('boardFrame'), scene: $('boardScene'),
+  art: $('answerArt'), symbols: $('artSymbols'), artTitle: $('artTitle'), artSubtitle: $('artSubtitle'),
+  gameStatus: $('gameStatus'), roundInfo: $('roundInfo'), roundNumber: $('roundNumber'),
+  progressText: $('progressText'), progressFill: $('progressFill'), openedCount: $('openedCount'),
+  score: $('score'), timer: $('timer'), complete: $('boardComplete'),
+  revealMode: $('revealMode'), quizMode: $('quizMode'),
+  hintBtn: $('hintBtn'), hintBox: $('hintBox'), revealAllBtn: $('revealAllBtn'),
+  nextRoundBtn: $('nextRoundBtn'), resetBtn: $('resetBtn'), soundBtn: $('soundBtn'), fullscreenBtn: $('fullscreenBtn'),
+  modal: $('questionModal'), questionCategory: $('questionCategory'), questionNumber: $('questionNumber'),
+  questionTitle: $('questionTitle'), answerOptions: $('answerOptions'),
+  answerFeedback: $('answerFeedback'), continueBtn: $('continueBtn'), closeModalBtn: $('closeModalBtn'), toast: $('toast'), confetti: $('confetti'),
+};
+
+const TOTAL_TILES = 36;
+const TOTAL_ROUNDS = 4;
+const state = {
+  mode: 'reveal', round: 0, rounds: [], opened: new Set(),
+  quizDeck: [], answered: 0, activeTile: -1, answeredModal: false, score: 0,
+  running: false, seconds: 0, muted: true, hintVisible: false,
+};
+let lastFocusedTile = null;
+let audioContext = null;
+let toastTimeout = null;
+
+function playTone(type = 'flip') {
+  if (state.muted) return;
+  try {
+    audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const start = audioContext.currentTime;
+    osc.type = type === 'correct' ? 'sine' : (type === 'incorrect' ? 'triangle' : 'sine');
+    osc.frequency.setValueAtTime(type === 'incorrect' ? 260 : 480, start);
+    osc.frequency.exponentialRampToValueAtTime(type === 'correct' ? 920 : (type === 'incorrect' ? 160 : 680), start + .16);
+    gain.gain.setValueAtTime(.045, start);
+    gain.gain.exponentialRampToValueAtTime(.001, start + .24);
+    osc.connect(gain); gain.connect(audioContext.destination);
+    osc.start(start); osc.stop(start + .25);
+  } catch (_) { /* The game still works if audio is blocked. */ }
+}
+
+function showToast(message) {
+  els.toast.textContent = message;
+  els.toast.classList.add('visible');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => els.toast.classList.remove('visible'), 2800);
+}
+
+function celebration() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const colors = ['#4ee8cd','#7daafa','#b89bff','#ffce7c','#fb94cb'];
+  els.confetti.replaceChildren();
+  for (let i = 0; i < 48; i++) {
+    const particle = document.createElement('i');
+    particle.className = 'confetti-piece';
+    particle.style.left = `${Math.random()*100}%`;
+    particle.style.background = colors[i % colors.length];
+    particle.style.animationDelay = `${Math.random()*.45}s`;
+    particle.style.setProperty('--drift', `${Math.random()*220-110}px`);
+    els.confetti.append(particle);
+  }
+  setTimeout(() => els.confetti.replaceChildren(), 2900);
+}
+
+function startTimer() { state.running = true; }
+setInterval(() => {
+  if (!state.running || !els.modal.hidden) return;
+  state.seconds++;
+  els.timer.textContent = `${String(Math.floor(state.seconds / 60)).padStart(2, '0')}:${String(state.seconds % 60).padStart(2, '0')}`;
+}, 1000);
+
+function currentCard() { return state.rounds[state.round]; }
+
+function renderArt() {
+  const card = currentCard();
+  els.art.dataset.tone = card.tone;
+  els.symbols.replaceChildren();
+  for (const token of card.tokens) {
+    const item = document.createElement('span');
+    item.className = 'symbol-token';
+    item.textContent = token;
+    els.symbols.append(item);
+  }
+  els.artTitle.textContent = card.label;
+  els.artSubtitle.textContent = card.subtitle;
+  els.art.setAttribute('aria-label', `${card.label} — ${card.subtitle}`);
+  els.art.setAttribute('aria-hidden', 'true');
+}
+
+function makeTiles() {
+  els.tiles.replaceChildren();
+  for (let i = 0; i < TOTAL_TILES; i++) {
+    const tile = document.createElement('button');
+    tile.type = 'button';
+    tile.className = 'tile';
+    tile.setAttribute('aria-label', `เปิดป้ายหมายเลข ${i+1}`);
+    tile.dataset.tile = String(i);
+    const body = document.createElement('span'); body.className = 'tile-body';
+    const face = document.createElement('span'); face.className = 'tile-front'; face.textContent = String(i+1);
+    body.append(face); tile.append(body);
+    tile.addEventListener('click', () => openTile(tile, i));
+    els.tiles.append(tile);
+  }
+}
+
+function setTileOpened(tile, questionAnswered = false) {
+  tile.classList.add(questionAnswered ? 'answered-quiz' : 'opened');
+  tile.disabled = true;
+  tile.setAttribute('aria-label', `ป้ายหมายเลข ${Number(tile.dataset.tile)+1} เปิดแล้ว`);
+}
+
+function refreshStatus() {
+  const openedCount = state.mode === 'reveal' ? state.opened.size : state.answered;
+  const percent = (openedCount / TOTAL_TILES) * 100;
+  els.score.textContent = String(state.score);
+  els.openedCount.innerHTML = `${openedCount}<span class="subnum">/36</span>`;
+  els.progressText.textContent = state.mode === 'reveal' ? `เปิดแล้ว ${openedCount} / 36 ป้าย` : `ตอบแล้ว ${openedCount} / 36 คำถาม`;
+  els.progressFill.style.width = `${percent}%`;
+  els.roundInfo.textContent = state.mode === 'reveal' ? `ROUND ${String(state.round + 1).padStart(2,'0')} / 04` : 'QUESTION CHALLENGE';
+  els.roundNumber.textContent = state.mode === 'reveal' ? String(state.round + 1).padStart(2,'0') : '01';
+  els.gameStatus.textContent = state.mode === 'reveal' ? 'โหมดเปิดป้ายภาพปริศนา' : 'โหมดท้าทายความรู้ · สุ่มคำถามไม่ซ้ำ';
+  els.complete.hidden = openedCount !== TOTAL_TILES;
+  els.revealAllBtn.hidden = state.mode !== 'reveal';
+  els.hintBtn.hidden = state.mode !== 'reveal';
+  els.nextRoundBtn.hidden = state.mode !== 'reveal';
+  els.nextRoundBtn.textContent = state.round === TOTAL_ROUNDS - 1 ? '↻ เล่นเกมชุดใหม่' : '➜ รอบถัดไป →';
+  els.nextRoundBtn.disabled = state.mode !== 'reveal';
+  els.revealMode.classList.toggle('active', state.mode === 'reveal');
+  els.quizMode.classList.toggle('active', state.mode === 'quiz');
+  els.revealMode.setAttribute('aria-pressed', String(state.mode === 'reveal'));
+  els.quizMode.setAttribute('aria-pressed', String(state.mode === 'quiz'));
+  els.board.classList.toggle('quiz-board', state.mode === 'quiz');
+  els.hintBox.hidden = !state.hintVisible || state.mode !== 'reveal';
+}
+
+function openTile(tile, index) {
+  if (state.mode === 'quiz') {
+    if (state.activeTile !== -1 || state.opened.has(index) || state.answered >= TOTAL_TILES) return;
+    startTimer();
+    state.activeTile = index;
+    state.answeredModal = false;
+    lastFocusedTile = tile;
+    showQuestion(state.quizDeck[state.answered]);
+    playTone('flip');
+    return;
+  }
+  if (state.opened.has(index)) return;
+  startTimer();
+  state.opened.add(index);
+  setTileOpened(tile);
+  playTone('flip');
+  refreshStatus();
+  if (state.opened.size === TOTAL_TILES) {
+    state.score += 100;
+    state.running = false;
+    celebration();
+    showToast('เปิดครบทุกป้ายแล้ว! +100 คะแนน ✨');
+    refreshStatus();
+  }
+}
+
+function showQuestion(question) {
+  els.modal.hidden = false;
+  els.questionTitle.textContent = question.text;
+  els.questionCategory.textContent = question.category;
+  els.questionNumber.textContent = `QUESTION ${String(state.answered + 1).padStart(2, '0')} / ${TOTAL_TILES}`;
+  els.answerOptions.replaceChildren();
+  els.answerFeedback.hidden = true;
+  els.answerFeedback.classList.remove('negative');
+  els.continueBtn.hidden = true;
+  question.options.forEach((option, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-option'; btn.type = 'button';
+    const letter = document.createElement('span'); letter.className = 'answer-letter'; letter.textContent = 'ABCD'[index];
+    const content = document.createElement('span'); content.textContent = option;
+    btn.append(letter, content);
+    btn.addEventListener('click', () => checkOption(index));
+    els.answerOptions.append(btn);
+  });
+  els.answerOptions.querySelector('button')?.focus();
+}
+
+function checkOption(index) {
+  if (state.answeredModal || state.activeTile < 0) return;
+  const question = state.quizDeck[state.answered];
+  const correct = gradeAnswer(question, index);
+  state.answeredModal = true;
+  if (correct) { state.score += 10; playTone('correct'); }
+  else { playTone('incorrect'); }
+  [...els.answerOptions.children].forEach((btn,i) => {
+    btn.disabled = true;
+    if (i === question.answer) btn.classList.add('correct');
+    else if (i === index) btn.classList.add('wrong');
+  });
+  els.answerFeedback.hidden = false;
+  els.answerFeedback.classList.toggle('negative', !correct);
+  els.answerFeedback.replaceChildren();
+  const title = document.createElement('strong');
+  title.textContent = correct ? '✓ ถูกต้อง! +10 คะแนน' : `✕ ยังไม่ถูก · คำตอบที่ถูกคือ ${'ABCD'[question.answer]}`;
+  const explanation = document.createElement('div'); explanation.textContent = question.explanation;
+  els.answerFeedback.append(title, explanation);
+  els.continueBtn.hidden = false;
+  refreshStatus();
+  els.continueBtn.focus();
+}
+
+function closeQuestion() {
+  if (state.activeTile === -1) { els.modal.hidden = true; return; }
+  if (state.answeredModal) finishQuestion();
+  else { state.activeTile = -1; els.modal.hidden = true; lastFocusedTile?.focus(); }
+}
+
+function finishQuestion() {
+  if (!state.answeredModal || state.activeTile === -1) return;
+  els.modal.hidden = true;
+  const tile = els.tiles.querySelector(`[data-tile="${state.activeTile}"]`);
+  if (tile) setTileOpened(tile, true);
+  state.opened.add(state.activeTile);
+  state.activeTile = -1;
+  state.answered++;
+  state.answeredModal = false;
+  refreshStatus();
+  if (state.answered === TOTAL_TILES) {
+    state.running = false;
+    celebration();
+    showToast(`ยอดเยี่ยม! ครบ 36 ข้อ ได้ ${state.score} / 360 คะแนน ✨`);
+  }
+  const nextTile = [...els.tiles.querySelectorAll('button:not(:disabled)')][0];
+  nextTile?.focus();
+}
+
+function revealAll() {
+  if (state.mode !== 'reveal') return;
+  startTimer();
+  els.tiles.querySelectorAll('.tile').forEach((tile, index) => {
+    if (!state.opened.has(index)) {
+      state.opened.add(index);
+      tile.style.transitionDelay = `${Math.min(index * 0.012, .4)}s`;
+      setTileOpened(tile);
+    }
+  });
+  state.running = false;
+  refreshStatus();
+  showToast('เปิดเฉลยทั้งหมดแล้ว · พร้อมอภิปรายเงื่อนไขการใช้ผลงาน');
+}
+
+function nextRound() {
+  if (state.mode !== 'reveal') return;
+  if (state.round >= TOTAL_ROUNDS - 1) { newGame(); showToast('สุ่มชุดภาพปริศนาใหม่แล้ว'); return; }
+  state.round++;
+  state.opened.clear();
+  state.hintVisible = false;
+  state.running = false;
+  renderArt();
+  makeTiles();
+  refreshStatus();
+  showToast(`เริ่มรอบ ${state.round + 1} · คำตอบไม่ซ้ำกับรอบก่อน`);
+}
+
+function newGame(mode = state.mode) {
+  state.mode = mode;
+  state.round = 0;
+  state.rounds = selectUnique(REVEAL_CARDS, TOTAL_ROUNDS);
+  state.quizDeck = selectUnique(QUESTIONS, TOTAL_TILES);
+  state.opened.clear();
+  state.answered = 0;
+  state.activeTile = -1;
+  state.answeredModal = false;
+  state.score = 0;
+  state.running = false;
+  state.seconds = 0;
+  state.hintVisible = false;
+  els.timer.textContent = '00:00';
+  els.modal.hidden = true;
+  renderArt();
+  makeTiles();
+  refreshStatus();
+}
+
+els.revealMode.addEventListener('click', () => { if (state.mode !== 'reveal') { newGame('reveal'); showToast('เข้าสู่โหมดเปิดภาพปริศนา'); } });
+els.quizMode.addEventListener('click', () => { if (state.mode !== 'quiz') { newGame('quiz'); showToast('สุ่มคำถาม 36 ข้อที่ไม่ซ้ำกันแล้ว'); } });
+els.resetBtn.addEventListener('click', () => { newGame(); showToast('เริ่มเกมใหม่และสุ่มชุดคำถามอีกครั้งแล้ว'); });
+els.nextRoundBtn.addEventListener('click', nextRound);
+els.revealAllBtn.addEventListener('click', revealAll);
+els.hintBtn.addEventListener('click', () => {
+  if (state.mode !== 'reveal') return;
+  state.hintVisible = !state.hintVisible;
+  els.hintBox.textContent = `💡 ${currentCard().hint}`;
+  refreshStatus();
+});
+els.closeModalBtn.addEventListener('click', closeQuestion);
+els.continueBtn.addEventListener('click', finishQuestion);
+els.modal.addEventListener('click', (event) => { if (event.target === els.modal) closeQuestion(); });
+els.soundBtn.addEventListener('click', () => {
+  state.muted = !state.muted;
+  els.soundBtn.textContent = state.muted ? '🔇' : '🔊';
+  els.soundBtn.setAttribute('aria-label', state.muted ? 'เปิดเสียงเกม' : 'ปิดเสียงเกม');
+  if (!state.muted) playTone('correct');
+});
+els.fullscreenBtn.addEventListener('click', toggleFullscreen);
+async function toggleFullscreen() {
+  try {
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  } catch (_) { showToast('เบราว์เซอร์นี้ไม่รองรับโหมดเต็มหน้าจอ'); }
+}
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !els.modal.hidden) closeQuestion();
+  if (event.key.toLowerCase() === 'f' && els.modal.hidden && !event.repeat && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) toggleFullscreen();
+});
+els.scene.addEventListener('pointermove', (event) => {
+  if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r = els.scene.getBoundingClientRect();
+  const rx = (event.clientY - r.top) / r.height - .5;
+  const ry = (event.clientX - r.left) / r.width - .5;
+  els.board.style.setProperty('--tiltx', `${(-rx*2.5).toFixed(2)}deg`);
+  els.board.style.setProperty('--tilty', `${(ry*2.5).toFixed(2)}deg`);
+});
+els.scene.addEventListener('pointerleave', () => {
+  els.board.style.setProperty('--tiltx', '0deg');
+  els.board.style.setProperty('--tilty', '0deg');
+});
+
+newGame('reveal');
+
+</script>
+</body>
+</html>
