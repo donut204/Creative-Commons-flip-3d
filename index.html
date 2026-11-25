@@ -37,6 +37,15 @@
 .intro-decor .deco-ring{pointer-events:none}
 .intro-decor .floating-cube{position:absolute;top:19px;left:37px;width:118px;height:118px;z-index:2;transform:none;border:0;border-radius:50%;background:transparent;box-shadow:none;display:grid;place-items:center}
 .intro-decor .floating-cube img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 17px #010b2977);transform:none}
+
+/* Think Timer — class discussion countdown, separate from elapsed session time */
+.think-banner{display:flex;align-items:center;gap:16px;margin:0 4px 11px;padding:11px 15px;border:1px solid #3f5b86;border-radius:15px;background:linear-gradient(115deg,#15294b,#1d2f5c);min-height:83px}
+.think-face{display:flex;align-items:baseline;gap:8px;flex:none}.think-label{font:800 10px system-ui,sans-serif;letter-spacing:1.5px;color:#9cbeed;align-self:center}.think-face strong{font:850 45px/1 system-ui,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-2px;color:#78f2d8}.think-unit{color:#9cbeed;font-size:12px}
+.think-details{display:flex;flex-direction:column;gap:7px;flex:1;min-width:120px}.think-details>span:first-child{font-size:14px;color:#e8f4ff;font-weight:500}.think-tip{font-size:10px;color:#97a8d1}.think-progress-track{height:7px;border-radius:6px;background:#0b1833;overflow:hidden}.think-progress-fill{height:100%;width:100%;background:linear-gradient(90deg,#5dd5fd,#6ff2cd);transition:width .22s linear}
+.think-banner[data-phase="running"]{border-color:#58cde1}.think-banner[data-phase="paused"]{border-color:#d6b476}.think-banner[data-phase="done"]{border-color:#f0a267;background:linear-gradient(120deg,#35263d,#392837)}.think-banner[data-phase="done"] .think-face strong,.think-banner.is-low .think-face strong{color:#ffbe85}.think-banner.is-low .think-progress-fill,.think-banner[data-phase="done"] .think-progress-fill{background:#ffad76}
+.think-controls{background:#0a1832;border:1px solid #2b426b;border-radius:15px;padding:13px;margin-bottom:13px}.think-controls-title{font-weight:600;color:#dceaff;font-size:13px;margin-bottom:10px}.think-duration-options{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}.think-duration{border:1px solid #415b82;border-radius:9px;background:#142645;color:#bed2f0;padding:8px 3px;font-size:12px}.think-duration.active{border-color:#61e7cf;background:#155254;color:#e9fff9;font-weight:600}.think-control-actions{display:grid;grid-template-columns:1fr 43px;gap:7px}.think-start{border:1px solid #71edda;border-radius:9px;background:#47d9bf;color:#072639;font-weight:700;font-size:13px;padding:9px 8px}.think-reset{border:1px solid #435c84;border-radius:9px;background:#1c3055;color:#d7e9fc;font-size:22px}.think-help{font-size:10px;color:#99aacc;margin-top:8px}.think-help kbd{border:1px solid #4a6386;padding:1px 5px;border-radius:4px;font-family:inherit}
+.question-think{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #47618c;background:#14284a;border-radius:13px;padding:9px 12px;margin:-5px 0 17px;color:#bde9e6}.question-think strong{font:800 27px system-ui,sans-serif;color:#74f2d7;margin:0 4px}.question-think button{border:1px solid #64d3c4;border-radius:9px;background:#1c635e;color:#f1fffb;font-size:12px;padding:8px 13px}.question-think[data-phase="done"] strong{color:#ffbd85}
+@media (max-width:590px){.think-banner{gap:9px;flex-wrap:wrap;padding:10px 12px}.think-face strong{font-size:37px}.think-label{font-size:9px}.think-details>span:first-child{font-size:12px}.think-tip{font-size:9px}.question-think{gap:8px}.question-think button{padding:8px 9px}}
 </style>
 </head>
 <body>
@@ -71,6 +80,10 @@
           <div class="panel-head">
             <div class="round-label"><span class="status-dot"></span> <span id="gameStatus">โหมดเปิดป้ายภาพปริศนา</span></div>
             <div class="round-count" id="roundInfo">ROUND 01 / 05</div>
+          </div>
+          <div class="think-banner" id="thinkBanner" data-phase="idle" aria-label="เวลาคิดก่อนตอบคำถาม">
+            <div class="think-face"><span class="think-label">THINK TIME</span><strong id="thinkCount" aria-label="วินาทีที่เหลือ">15</strong><span class="think-unit">วินาที</span></div>
+            <div class="think-details"><span id="thinkStatus" role="status" aria-live="polite">พร้อมเริ่มจับเวลา</span><div class="think-progress-track"><div class="think-progress-fill" id="thinkProgress"></div></div><span class="think-tip">ครูควบคุมเวลา · ไม่เฉลยอัตโนมัติ</span></div>
           </div>
           <div class="board-scene" id="boardScene">
             <div class="board-frame" id="boardFrame">
@@ -112,6 +125,18 @@
           <div class="side-card control-card">
             <div class="section-kicker">03 / TEACHER CONTROL</div>
             <h2>ควบคุมกิจกรรม</h2>
+            <div class="think-controls" aria-label="ตั้งค่า Think Timer">
+              <div class="think-controls-title">⏱ เวลาคิดก่อนตอบ</div>
+              <div class="think-duration-options" role="group" aria-label="เลือกระยะเวลาคิด">
+                <button id="think10Btn" class="think-duration" type="button" aria-pressed="false">10 วินาที</button>
+                <button id="think15Btn" class="think-duration active" type="button" aria-pressed="true">15 วินาที</button>
+              </div>
+              <div class="think-control-actions">
+                <button id="thinkStartBtn" type="button" class="think-start">▶ เริ่มจับเวลา</button>
+                <button id="thinkResetBtn" type="button" class="think-reset" aria-label="รีเซ็ตเวลาคิด">↻</button>
+              </div>
+              <div class="think-help">กด <kbd>T</kbd> เพื่อเริ่ม/หยุดชั่วคราว</div>
+            </div>
             <button id="hintBtn" class="action-button secondary" type="button"><span>💡</span> ใบ้คำตอบ <span class="btn-arrow">↗</span></button>
             <div class="hint-box" id="hintBox" hidden></div>
             <button id="revealAllBtn" class="action-button secondary" type="button"><span>👁</span> เฉลยทั้งภาพ <span class="btn-arrow">↗</span></button>
@@ -130,6 +155,10 @@
       <div class="dialog-top"><span class="dialog-badge">✦ RANDOM QUESTION</span><button id="closeModalBtn" class="dialog-close" type="button" aria-label="ปิดคำถาม">✕</button></div>
       <div class="dialog-meta"><span id="questionCategory">Creative Commons</span><span id="questionNumber">QUESTION 01</span></div>
       <h2 id="questionTitle">คำถามจะปรากฏตรงนี้</h2>
+      <div class="question-think" id="questionThink" data-phase="idle">
+        <span>⏱ เวลาคิด <strong id="questionThinkCount">15</strong> วินาที</span>
+        <button id="questionThinkStart" type="button">▶ เริ่มจับเวลา</button>
+      </div>
       <div id="answerOptions" class="answer-options"></div>
       <div id="answerFeedback" class="answer-feedback" hidden></div>
       <div class="dialog-actions"><button id="continueBtn" class="action-button primary" type="button" hidden>เล่นต่อ →</button></div>
@@ -234,6 +263,9 @@ const els = {
   gameStatus: $('gameStatus'), roundInfo: $('roundInfo'), roundNumber: $('roundNumber'),
   progressText: $('progressText'), progressFill: $('progressFill'), openedCount: $('openedCount'),
   score: $('score'), timer: $('timer'), complete: $('boardComplete'),
+  thinkBanner: $('thinkBanner'), thinkCount: $('thinkCount'), thinkStatus: $('thinkStatus'), thinkProgress: $('thinkProgress'),
+  think10Btn: $('think10Btn'), think15Btn: $('think15Btn'), thinkStartBtn: $('thinkStartBtn'), thinkResetBtn: $('thinkResetBtn'),
+  questionThink: $('questionThink'), questionThinkCount: $('questionThinkCount'), questionThinkStart: $('questionThinkStart'),
   revealMode: $('revealMode'), quizMode: $('quizMode'),
   hintBtn: $('hintBtn'), hintBox: $('hintBox'), revealAllBtn: $('revealAllBtn'),
   nextRoundBtn: $('nextRoundBtn'), resetBtn: $('resetBtn'), soundBtn: $('soundBtn'), fullscreenBtn: $('fullscreenBtn'),
@@ -248,10 +280,92 @@ const state = {
   mode: 'reveal', round: 0, rounds: [], opened: new Set(),
   quizDeck: [], answered: 0, activeTile: -1, answeredModal: false, score: 0,
   running: false, seconds: 0, muted: true, hintVisible: false, revealed: false,
+  thinkDuration: 15, thinkRemaining: 15, thinkPhase: 'idle', thinkEndAt: 0, thinkInterval: null,
 };
 let lastFocusedTile = null;
 let audioContext = null;
 let toastTimeout = null;
+
+// Think timer is a teacher-controlled classroom activity, not the game session clock.
+// performance.now() keeps the countdown correct if a browser tab is throttled.
+function clearThinkInterval() {
+  if (state.thinkInterval !== null) {
+    clearInterval(state.thinkInterval);
+    state.thinkInterval = null;
+  }
+}
+
+function renderThinkTimer() {
+  const remaining = state.thinkRemaining;
+  const phase = state.thinkPhase;
+  const actions = { idle: '▶ เริ่มจับเวลา', running: '⏸ หยุดชั่วคราว', paused: '▶ เริ่มต่อ', done: '↻ เริ่มใหม่' };
+  const labels = { idle: 'พร้อมเริ่มจับเวลา', running: 'กำลังคิด · ปรึกษากับเพื่อน', paused: 'หยุดชั่วคราว', done: 'หมดเวลาคิด! แสดงคำตอบได้เลย' };
+  const time = String(remaining).padStart(2, '0');
+  els.thinkCount.textContent = time;
+  els.questionThinkCount.textContent = time;
+  els.thinkStatus.textContent = labels[phase];
+  els.thinkProgress.style.width = `${Math.max(0, remaining / state.thinkDuration) * 100}%`;
+  els.thinkBanner.dataset.phase = phase;
+  els.questionThink.dataset.phase = phase;
+  els.thinkBanner.classList.toggle('is-low', remaining <= 5 && phase === 'running');
+  els.thinkStartBtn.textContent = actions[phase];
+  els.questionThinkStart.textContent = actions[phase];
+  for (const [duration, button] of [[10, els.think10Btn], [15, els.think15Btn]]) {
+    const active = state.thinkDuration === duration;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  }
+}
+
+function resetThinkTimer() {
+  clearThinkInterval();
+  state.thinkPhase = 'idle';
+  state.thinkRemaining = state.thinkDuration;
+  state.thinkEndAt = 0;
+  renderThinkTimer();
+}
+
+function setThinkDuration(duration) {
+  if (![10, 15].includes(duration)) return;
+  state.thinkDuration = duration;
+  resetThinkTimer();
+}
+
+function tickThinkTimer() {
+  if (state.thinkPhase !== 'running') return;
+  state.thinkRemaining = Math.max(0, Math.ceil((state.thinkEndAt - performance.now()) / 1000));
+  if (state.thinkRemaining === 0) {
+    clearThinkInterval();
+    state.thinkPhase = 'done';
+    playTone('correct');
+    showToast('⏰ หมดเวลาคิด! ให้แต่ละทีมแสดงคำตอบ');
+  }
+  renderThinkTimer();
+}
+
+function toggleThinkTimer() {
+  if (state.thinkPhase === 'running') {
+    tickThinkTimer();
+    if (state.thinkPhase !== 'running') return;
+    clearThinkInterval();
+    state.thinkPhase = 'paused';
+  } else {
+    if (state.thinkPhase === 'done') state.thinkRemaining = state.thinkDuration;
+    state.thinkPhase = 'running';
+    state.thinkEndAt = performance.now() + state.thinkRemaining * 1000;
+    state.thinkInterval = setInterval(tickThinkTimer, 100);
+  }
+  renderThinkTimer();
+}
+
+function pauseThinkTimer() {
+  if (state.thinkPhase !== 'running') return;
+  tickThinkTimer();
+  if (state.thinkPhase !== 'running') return;
+  clearThinkInterval();
+  state.thinkPhase = 'paused';
+  renderThinkTimer();
+}
 
 function playTone(type = 'flip') {
   if (state.muted) return;
@@ -392,6 +506,7 @@ function openTile(tile, index) {
 }
 
 function showQuestion(question) {
+  resetThinkTimer();
   els.modal.hidden = false;
   els.questionTitle.textContent = question.text;
   els.questionCategory.textContent = question.category;
@@ -417,6 +532,7 @@ function checkOption(index) {
   const question = state.quizDeck[state.answered];
   const correct = gradeAnswer(question, index);
   state.answeredModal = true;
+  pauseThinkTimer();
   if (correct) { state.score += 10; playTone('correct'); }
   else { playTone('incorrect'); }
   [...els.answerOptions.children].forEach((btn,i) => {
@@ -437,12 +553,14 @@ function checkOption(index) {
 }
 
 function closeQuestion() {
+  resetThinkTimer();
   if (state.activeTile === -1) { els.modal.hidden = true; return; }
   if (state.answeredModal) finishQuestion();
   else { state.activeTile = -1; els.modal.hidden = true; lastFocusedTile?.focus(); }
 }
 
 function finishQuestion() {
+  resetThinkTimer();
   if (!state.answeredModal || state.activeTile === -1) return;
   els.modal.hidden = true;
   const tile = els.tiles.querySelector(`[data-tile="${state.activeTile}"]`);
@@ -463,6 +581,7 @@ function finishQuestion() {
 
 function revealAll() {
   if (state.mode !== 'reveal') return;
+  resetThinkTimer();
   startTimer();
   state.revealed = true;
   renderArt();
@@ -482,6 +601,7 @@ function nextRound() {
   if (state.mode !== 'reveal') return;
   if (state.round >= TOTAL_ROUNDS - 1) { newGame(); showToast('สุ่มชุดภาพปริศนาใหม่แล้ว'); return; }
   state.round++;
+  resetThinkTimer();
   state.opened.clear();
   state.hintVisible = false;
   state.revealed = false;
@@ -493,6 +613,7 @@ function nextRound() {
 }
 
 function newGame(mode = state.mode) {
+  resetThinkTimer();
   state.mode = mode;
   state.round = 0;
   state.rounds = selectUnique(REVEAL_CARDS, TOTAL_ROUNDS);
@@ -518,6 +639,11 @@ els.quizMode.addEventListener('click', () => { if (state.mode !== 'quiz') { newG
 els.resetBtn.addEventListener('click', () => { newGame(); showToast('เริ่มเกมใหม่และสุ่มชุดคำถามอีกครั้งแล้ว'); });
 els.nextRoundBtn.addEventListener('click', nextRound);
 els.revealAllBtn.addEventListener('click', revealAll);
+els.think10Btn.addEventListener('click', () => setThinkDuration(10));
+els.think15Btn.addEventListener('click', () => setThinkDuration(15));
+els.thinkStartBtn.addEventListener('click', toggleThinkTimer);
+els.questionThinkStart.addEventListener('click', toggleThinkTimer);
+els.thinkResetBtn.addEventListener('click', resetThinkTimer);
 els.hintBtn.addEventListener('click', () => {
   if (state.mode !== 'reveal') return;
   state.hintVisible = !state.hintVisible;
@@ -542,6 +668,10 @@ async function toggleFullscreen() {
 }
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !els.modal.hidden) closeQuestion();
+  if (event.key.toLowerCase() === 't' && !event.repeat && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName) && !document.activeElement?.isContentEditable) {
+    event.preventDefault();
+    toggleThinkTimer();
+  }
   if (event.key.toLowerCase() === 'f' && els.modal.hidden && !event.repeat && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) toggleFullscreen();
 });
 els.scene.addEventListener('pointermove', (event) => {
