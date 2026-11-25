@@ -32,6 +32,11 @@
 .answer-art .art-topline{top:28px;color:#99b8e0}
 .answer-art .art-bottomline{bottom:24px;color:#bdc8d9}
 .board-frame.quiz-board .answer-art{background:radial-gradient(circle at 50% 45%,#293c89,#111b4c 70%)}
+
+/* Show the provided CC symbol in its original proportions; 3D remains on the tiles only. */
+.intro-decor .deco-ring{pointer-events:none}
+.intro-decor .floating-cube{position:absolute;top:19px;left:37px;width:118px;height:118px;z-index:2;transform:none;border:0;border-radius:50%;background:transparent;box-shadow:none;display:grid;place-items:center}
+.intro-decor .floating-cube img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 17px #010b2977);transform:none}
 </style>
 </head>
 <body>
@@ -46,7 +51,7 @@
         <span><strong>CC FLIP<span class="brand-3d">3D</span></strong><small>INTERACTIVE CLASSROOM</small></span>
       </a>
       <div class="top-right">
-        <span class="topic-tag">ว33281 · เทคโนโลยี 4</span>
+        
         <button id="soundBtn" class="icon-button" type="button" title="เปิดหรือปิดเสียง" aria-label="เปิดเสียงเกม">🔇</button>
         <button id="fullscreenBtn" class="icon-button" type="button" title="เต็มหน้าจอ" aria-label="เปิดเต็มหน้าจอ">⛶</button>
       </div>
@@ -59,7 +64,7 @@
           <h1>เปิดป้าย <span class="gradient-text">ไขปริศนา</span><br />Creative Commons</h1>
           <p>เปิดแผ่นป้าย 3 มิติ ค้นหาความหมายของสัญลักษณ์ลิขสิทธิ์ หรือท้าทายความรู้ด้วยคำถามสุ่มไม่ซ้ำ</p>
         </div>
-        <div class="intro-decor" aria-hidden="true"><div class="deco-ring"><div class="floating-cube"><span>CC</span></div></div><div class="sparkle d1">✳</div><div class="sparkle d2">✦</div></div>
+        <div class="intro-decor" aria-hidden="true"><div class="deco-ring"></div><div class="floating-cube"><img src="./assets/cc.svg" alt="" draggable="false" /></div><div class="sparkle d1">✳</div><div class="sparkle d2">✦</div></div>
       </section>
 
       <div class="game-layout">
