@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#070c1f" />
-  <meta name="description" content="เกมเปิดแผ่นป้าย Creative Commons แบบ 3D และคำถามสุ่มไม่ซ้ำ สำหรับการสอนวิชาเทคโนโลยี" />
+  <meta name="description" content="เกมเปิดแผ่นป้าย 3 มิติ เรียนรู้สัญลักษณ์ Creative Commons สำหรับการสอนวิชาเทคโนโลยี" />
   <title>CC FLIP 3D — เกมเปิดแผ่นป้าย Creative Commons</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap');
@@ -46,6 +46,10 @@
 .think-controls{background:#0a1832;border:1px solid #2b426b;border-radius:15px;padding:13px;margin-bottom:13px}.think-controls-title{font-weight:600;color:#dceaff;font-size:13px;margin-bottom:10px}.think-duration-options{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}.think-duration{border:1px solid #415b82;border-radius:9px;background:#142645;color:#bed2f0;padding:8px 3px;font-size:12px}.think-duration.active{border-color:#61e7cf;background:#155254;color:#e9fff9;font-weight:600}.think-control-actions{display:grid;grid-template-columns:1fr 43px;gap:7px}.think-start{border:1px solid #71edda;border-radius:9px;background:#47d9bf;color:#072639;font-weight:700;font-size:13px;padding:9px 8px}.think-reset{border:1px solid #435c84;border-radius:9px;background:#1c3055;color:#d7e9fc;font-size:22px}.think-help{font-size:10px;color:#99aacc;margin-top:8px}.think-help kbd{border:1px solid #4a6386;padding:1px 5px;border-radius:4px;font-family:inherit}
 .question-think{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #47618c;background:#14284a;border-radius:13px;padding:9px 12px;margin:-5px 0 17px;color:#bde9e6}.question-think strong{font:800 27px system-ui,sans-serif;color:#74f2d7;margin:0 4px}.question-think button{border:1px solid #64d3c4;border-radius:9px;background:#1c635e;color:#f1fffb;font-size:12px;padding:8px 13px}.question-think[data-phase="done"] strong{color:#ffbd85}
 @media (max-width:590px){.think-banner{gap:9px;flex-wrap:wrap;padding:10px 12px}.think-face strong{font-size:37px}.think-label{font-size:9px}.think-details>span:first-child{font-size:12px}.think-tip{font-size:9px}.question-think{gap:8px}.question-think button{padding:8px 9px}}
+
+/* Keep the complete activity name on a single line at projector and phone widths. */
+.intro-copy{width:100%;min-width:0}
+.intro-copy h1{font-size:clamp(12px,2.9vw,43px);white-space:nowrap;letter-spacing:-.7px}
 </style>
 </head>
 <body>
@@ -70,15 +74,15 @@
       <section class="intro" aria-label="แนะนำเกม">
         <div class="intro-copy">
           <div class="eyebrow"><span class="pulse"></span> READY TO PLAY · เกมการเรียนรู้แบบโต้ตอบ</div>
-          <h1>เปิดป้าย <span class="gradient-text">ไขปริศนา</span><br />Creative Commons</h1>
-          <p>เปิดแผ่นป้าย 3 มิติ ค้นหาความหมายของสัญลักษณ์ลิขสิทธิ์ หรือท้าทายความรู้ด้วยคำถามสุ่มไม่ซ้ำ</p>
+          <h1>เปิดป้าย <span class="gradient-text">ไขปริศนา</span> Creative Commons</h1>
+          <p>เปิดแผ่นป้าย 3 มิติ ค้นหาความหมายของสัญลักษณ์ Creative Commons พร้อมเรียนรู้เงื่อนไขการใช้ผลงาน</p>
         </div>
       </section>
 
       <div class="game-layout">
         <section class="game-panel" aria-label="กระดานเกม">
           <div class="panel-head">
-            <div class="round-label"><span class="status-dot"></span> <span id="gameStatus">โหมดเปิดป้ายภาพปริศนา</span></div>
+            <div class="round-label"><span class="status-dot"></span> <span id="gameStatus">เปิดภาพปริศนา</span></div>
             <div class="round-count" id="roundInfo">ROUND 01 / 05</div>
           </div>
           <div class="think-banner" id="thinkBanner" data-phase="idle" aria-label="เวลาคิดก่อนตอบคำถาม">
@@ -105,16 +109,8 @@
         </section>
 
         <aside class="control-panel" aria-label="เครื่องมือควบคุมเกม">
-          <div class="side-card mode-card">
-            <div class="section-kicker">01 / GAME MODE</div>
-            <h2>เลือกรูปแบบเกม</h2>
-            <div class="mode-switch" role="group" aria-label="เลือกโหมดเกม">
-              <button id="revealMode" class="mode-btn active" type="button" aria-pressed="true"><span class="mode-icon">▦</span><span>เปิดภาพปริศนา<small>ทายภาพที่ซ่อนอยู่</small></span></button>
-              <button id="quizMode" class="mode-btn" type="button" aria-pressed="false"><span class="mode-icon">❔</span><span>คำถามสุ่ม<small>สุ่มข้อสอบไม่ซ้ำ</small></span></button>
-            </div>
-          </div>
           <div class="side-card stat-card">
-            <div class="section-kicker">02 / LIVE STATUS</div>
+            <div class="section-kicker">01 / LIVE STATUS</div>
             <div class="stats-grid">
               <div class="stat"><span>คะแนน</span><strong id="score">0</strong><small>POINTS</small></div>
               <div class="stat"><span>เปิดป้ายแล้ว</span><strong id="openedCount">0<span class="subnum">/36</span></strong><small>TILES</small></div>
@@ -123,7 +119,7 @@
             </div>
           </div>
           <div class="side-card control-card">
-            <div class="section-kicker">03 / TEACHER CONTROL</div>
+            <div class="section-kicker">02 / TEACHER CONTROL</div>
             <h2>ควบคุมกิจกรรม</h2>
             <div class="think-controls" aria-label="ตั้งค่า Think Timer">
               <div class="think-controls-title">⏱ เวลาคิดก่อนตอบ</div>
@@ -143,27 +139,13 @@
             <button id="nextRoundBtn" class="action-button primary" type="button"><span>➜</span> รอบถัดไป <span class="btn-arrow">↗</span></button>
             <button id="resetBtn" class="action-button ghost" type="button"><span>↻</span> เริ่มเกมใหม่ <span class="btn-arrow">↗</span></button>
           </div>
-          <p class="privacy-note"><span>●</span> ไม่ต้องล็อกอิน · ไม่มีฐานข้อมูล · คำถามไม่ซ้ำภายในเกม</p>
+          <p class="privacy-note"><span>●</span> ไม่ต้องล็อกอิน · ไม่มีฐานข้อมูล · ภาพปริศนาไม่ซ้ำภายในชุด</p>
         </aside>
       </div>
     </main>
     <footer class="footer"><span>ออกแบบสำหรับการสาธิตสอน · จริยธรรมในการใช้เทคโนโลยี · ม.6</span><span>ตรวจเงื่อนไขจริงได้ที่ <a href="https://creativecommons.org/licenses/" target="_blank" rel="noopener noreferrer">Creative Commons ↗</a></span></footer>
   </div>
 
-  <div class="modal-backdrop" id="questionModal" hidden>
-    <div class="question-dialog" role="dialog" aria-modal="true" aria-labelledby="questionTitle">
-      <div class="dialog-top"><span class="dialog-badge">✦ RANDOM QUESTION</span><button id="closeModalBtn" class="dialog-close" type="button" aria-label="ปิดคำถาม">✕</button></div>
-      <div class="dialog-meta"><span id="questionCategory">Creative Commons</span><span id="questionNumber">QUESTION 01</span></div>
-      <h2 id="questionTitle">คำถามจะปรากฏตรงนี้</h2>
-      <div class="question-think" id="questionThink" data-phase="idle">
-        <span>⏱ เวลาคิด <strong id="questionThinkCount">15</strong> วินาที</span>
-        <button id="questionThinkStart" type="button">▶ เริ่มจับเวลา</button>
-      </div>
-      <div id="answerOptions" class="answer-options"></div>
-      <div id="answerFeedback" class="answer-feedback" hidden></div>
-      <div class="dialog-actions"><button id="continueBtn" class="action-button primary" type="button" hidden>เล่นต่อ →</button></div>
-    </div>
-  </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <div id="confetti" class="confetti" aria-hidden="true"></div>
   <script>
@@ -181,10 +163,6 @@ function selectUnique(items, count, random = Math.random) {
   return shuffle(items, random).slice(0, count);
 }
 
-function gradeAnswer(question, chosenIndex) {
-  return chosenIndex === question.answer;
-}
-
 const REVEAL_CARDS = [
   { label: 'CC', name: 'Creative Commons', subtitle: 'สัญลักษณ์ Creative Commons', image: './assets/cc.svg', tone: 'cyan', hint: 'สัญลักษณ์หลักของระบบสัญญาอนุญาตที่ส่งเสริมการแบ่งปันผลงาน' },
   { label: 'BY', name: 'Attribution', subtitle: 'แสดงที่มาและให้เครดิต', image: './assets/by.svg', tone: 'cyan', hint: 'เมื่อใช้ผลงาน ต้องให้เครดิตผู้สร้างสรรค์ตามเงื่อนไข' },
@@ -192,69 +170,6 @@ const REVEAL_CARDS = [
   { label: 'ND', name: 'NoDerivatives', subtitle: 'ไม่เผยแพร่ผลงานที่ดัดแปลง', image: './assets/nd.svg', tone: 'amber', hint: 'หากดัดแปลงผลงานแล้ว ไม่สามารถแบ่งปันฉบับดัดแปลงตามเงื่อนไขนี้ได้' },
   { label: 'SA', name: 'ShareAlike', subtitle: 'เผยแพร่ภายใต้เงื่อนไขเดียวกัน', image: './assets/sa.svg', tone: 'violet', hint: 'เมื่อดัดแปลงและเผยแพร่ ต้องใช้สัญญาอนุญาตแบบเดียวกันหรือที่เข้ากันได้' },
 ];
-
-// Creative Commons 4.0 / digital citizenship questions for upper-secondary learners.
-// To add a question: q('คำถาม', ['ตัวเลือก A', 'ตัวเลือก B', 'ตัวเลือก C', 'ตัวเลือก D'], 0..3, 'คำอธิบาย', 'หมวดหมู่')
-const q = (text, options, answer, explanation, category = 'Creative Commons') => ({ text, options, answer, explanation, category });
-const QUESTIONS = [
-  q('สัญลักษณ์ BY ใน Creative Commons หมายถึงอะไร?', ['ระบุที่มาและให้เครดิตเจ้าของผลงาน', 'ห้ามเผยแพร่', 'ห้ามนำไปใช้สอน', 'ใช้ได้เฉพาะโรงเรียน'], 0, 'BY (Attribution) กำหนดให้ระบุที่มาและให้เครดิตตามเงื่อนไขสัญญาอนุญาต'),
-  q('สัญลักษณ์ NC มีความหมายตรงกับข้อใด?', ['ต้องนำไปขาย', 'ห้ามใช้เพื่อวัตถุประสงค์ทางการค้า', 'ห้ามแก้ไข', 'ต้องแชร์ด้วยเงื่อนไขเดียวกัน'], 1, 'NC (NonCommercial) จำกัดการใช้งานที่มีวัตถุประสงค์เชิงพาณิชย์'),
-  q('สัญลักษณ์ ND ในสัญญาอนุญาตหมายถึงอะไร?', ['ต้องเปลี่ยนชื่อไฟล์', 'ห้ามเปิดดู', 'ห้ามเผยแพร่ผลงานที่ดัดแปลง', 'นำไปขายได้เสมอ'], 2, 'ND (NoDerivatives) ไม่อนุญาตให้แบ่งปันผลงานที่ดัดแปลง แม้ยังใช้ต้นฉบับตามเงื่อนไขอื่นได้'),
-  q('สัญลักษณ์ SA หมายถึงข้อใด?', ['ลบชื่อผู้สร้างได้', 'ห้ามนักเรียนใช้', 'ใช้ได้เมื่อสมัครสมาชิก', 'เผยแพร่งานดัดแปลงด้วยสัญญาอนุญาตแบบเดียวกัน'], 3, 'SA (ShareAlike) กำหนดให้งานดัดแปลงใช้สัญญาอนุญาตเดียวกันหรือที่เข้ากันได้'),
-  q('CC BY อนุญาตให้ดัดแปลงผลงานได้หรือไม่?', ['ได้ หากระบุที่มาและปฏิบัติตามเงื่อนไข', 'ไม่ได้ทุกกรณี', 'ได้เฉพาะวันหยุด', 'ได้เฉพาะภาพถ่าย'], 0, 'CC BY อนุญาตให้คัดลอก แจกจ่าย และดัดแปลงได้ รวมถึงเชิงพาณิชย์ เมื่อระบุที่มา'),
-  q('CC BY-NC อนุญาตให้ใช้ผลงานในลักษณะใด?', ['ใช้เชิงพาณิชย์โดยไม่ให้เครดิต', 'ใช้ที่ไม่ใช่เชิงพาณิชย์โดยให้เครดิต', 'ห้ามดูผลงาน', 'ใช้ได้โดยไม่ต้องดูสัญญา'], 1, 'BY-NC ต้องให้เครดิต และการใช้ต้องไม่เป็นเชิงพาณิชย์'),
-  q('CC BY-ND เน้นเงื่อนไขสำคัญเรื่องใด?', ['ห้ามดาวน์โหลดต้นฉบับ', 'ห้ามให้เครดิต', 'ไม่อนุญาตให้เผยแพร่ฉบับดัดแปลง', 'ต้องเก็บเป็นความลับ'], 2, 'ผลงานที่เผยแพร่ต่อภายใต้ BY-ND ต้องไม่เป็นฉบับดัดแปลง และต้องระบุที่มา'),
-  q('CC BY-SA มีเงื่อนไขเพิ่มเติมจาก BY อย่างไร?', ['ไม่ให้ลงออนไลน์', 'ต้องใช้ฟอนต์เดียวกัน', 'ห้ามทำวิดีโอ', 'ต้องใช้เงื่อนไขเดียวกันกับงานดัดแปลง'], 3, 'BY-SA บังคับ ShareAlike เมื่อนำผลงานไปดัดแปลงและเผยแพร่'),
-  q('CC BY-NC-SA เหมาะกับข้อใดมากที่สุด?', ['งานดัดแปลงที่ไม่ใช่เชิงพาณิชย์ ให้เครดิต และใช้เงื่อนไขเดียวกัน', 'งานขายสินค้าโดยไม่ให้เครดิต', 'งานที่ห้ามดัดแปลงทุกกรณี', 'งานที่เจ้าของห้ามเปิดดู'], 0, 'BY-NC-SA รวมเงื่อนไข Attribution, NonCommercial และ ShareAlike'),
-  q('CC BY-NC-ND มีข้อจำกัดใด?', ['ต้องดัดแปลงก่อนแชร์', 'ให้เครดิต ไม่ใช้เชิงพาณิชย์ และไม่แชร์งานดัดแปลง', 'แชร์เชิงพาณิชย์โดยไม่ให้เครดิต', 'ใช้ได้เฉพาะวิชาศิลปะ'], 1, 'BY-NC-ND เป็นรูปแบบที่จำกัดการใช้งานมากในกลุ่ม CC 4.0'),
-  q('เครื่องหมาย CC0 สื่อถึงอะไร?', ['สงวนสิทธิ์ทุกอย่าง', 'ให้ใช้เฉพาะในประเทศ', 'ผู้ให้ผลงานสละสิทธิ์ให้มากที่สุดเท่าที่กฎหมายอนุญาต', 'ห้ามใช้ออนไลน์'], 2, 'CC0 เป็นเครื่องมืออุทิศผลงานสู่สาธารณสมบัติเท่าที่กฎหมายรองรับ'),
-  q('ข้อความ “All rights reserved” โดยทั่วไปหมายถึงอะไร?', ['เป็น CC BY', 'เป็น CC0', 'ใช้ได้ทุกกรณี', 'ยังสงวนสิทธิ์ ต้องตรวจสอบการอนุญาตก่อนใช้'], 3, 'อย่าสรุปว่าผลงานออนไลน์ทุกชิ้นนำกลับไปใช้ซ้ำได้โดยไม่มีข้อจำกัด'),
-  q('นักเรียนนำภาพ CC BY มาใส่รายงาน ควรทำอย่างไร?', ['ให้เครดิตผู้สร้างและข้อมูลสัญญาอนุญาต', 'ลบลายน้ำเสมอ', 'อ้างว่าเป็นภาพที่ตัวเองถ่าย', 'ไม่ต้องทำอะไร'], 0, 'การระบุที่มาที่ดีประกอบด้วยผู้สร้าง ชื่อผลงาน/แหล่งที่มา สัญญาอนุญาต และระบุการแก้ไขเมื่อมี'),
-  q('ข้อใดเป็นตัวอย่างการให้เครดิตที่เหมาะสมที่สุด?', ['ภาพจากอินเทอร์เน็ต', 'ภาพโดย A / แหล่งที่มา / CC BY 4.0 / ดัดแปลงสีแล้ว', 'รูปสวยมาก', 'ไม่ทราบผู้สร้างก็ไม่ต้องเขียน'], 1, 'ควรระบุผู้สร้าง แหล่งที่มา สัญญาอนุญาต และการดัดแปลงตามความเหมาะสม'),
-  q('เมื่อปรับสีภาพ CC BY ที่นำมาใช้ ควรทำอย่างไร?', ['อ้างเป็นภาพตัวเอง', 'ปกปิดที่มา', 'แจ้งว่ามีการดัดแปลงพร้อมให้เครดิต', 'เปลี่ยนเป็น CC0 โดยอัตโนมัติ'], 2, 'เงื่อนไข Attribution กำหนดให้ระบุว่ามีการเปลี่ยนแปลงผลงานเมื่อทำได้'),
-  q('ภาพที่พบใน Google Images ใช้ทำสื่อได้ทันทีหรือไม่?', ['ได้เสมอ', 'ได้เฉพาะภาพขนาดเล็ก', 'ได้ถ้ามีสีสวย', 'ต้องตรวจสิทธิ์และเงื่อนไขจากต้นทางก่อน'], 3, 'ผลค้นหาเป็นเพียงช่องทางค้นพบภาพ ไม่ใช่หลักฐานว่าใช้ซ้ำได้เสมอ'),
-  q('หากสื่อมีสัญลักษณ์ BY-SA สามารถทำโปสเตอร์ดัดแปลงได้หรือไม่?', ['ได้ โดยให้เครดิตและเผยแพร่งานดัดแปลงตามเงื่อนไข SA', 'ไม่ได้โดยเด็ดขาด', 'ได้แต่ห้ามบอกผู้สร้าง', 'ได้เฉพาะภาพขาวดำ'], 0, 'BY-SA เปิดให้ดัดแปลงได้โดยต้องปฏิบัติตาม Attribution และ ShareAlike'),
-  q('เมื่อนำภาพ CC BY-ND ไปตัดต่อเป็นภาพใหม่แล้วเผยแพร่ ข้อใดถูก?', ['ทำได้โดยไม่ต้องให้เครดิต', 'ขัดกับเงื่อนไข ND เมื่อแบ่งปันงานดัดแปลง', 'ต้องขายภาพให้ได้', 'ไม่เกี่ยวกับลิขสิทธิ์'], 1, 'เงื่อนไข ND ไม่อนุญาตการเผยแพร่เวอร์ชันดัดแปลง'),
-  q('หากพบข้อความ “Public Domain” ควรทำอะไรเพิ่มเติม?', ['ลบชื่อผู้สร้างทันที', 'แปลงเป็นใบอนุญาต NC', 'ตรวจสอบความถูกต้องของสถานะและกฎหมายที่เกี่ยวข้อง', 'ใช้ได้โดยไม่มีข้อควรระวังทุกกรณี'], 2, 'สถานะสาธารณสมบัติอาจต่างตามเขตอำนาจและตัวผลงาน จึงควรตรวจสอบ'),
-  q('การใส่เครดิต “ขอบคุณ Google” เมื่อใช้ภาพค้นเจอเพียงพอหรือไม่?', ['เพียงพอเสมอ', 'เพียงพอถ้าอยู่ท้ายหน้า', 'เพียงพอถ้าใช้ในโรงเรียน', 'ไม่เพียงพอ ควรระบุเจ้าของผลงานและใบอนุญาต'], 3, 'Google เป็นเครื่องมือค้นหา ไม่จำเป็นต้องเป็นเจ้าของสิทธิ์ของภาพ'),
-  q('ข้อใดเป็นวิธีใช้เทคโนโลยีอย่างมีจริยธรรม?', ['ตรวจสิทธิ์ก่อนนำสื่อคนอื่นมาใช้', 'คัดลอกโดยไม่อ้างอิง', 'เผยแพร่ข้อมูลส่วนตัวของเพื่อน', 'ใส่ชื่อผู้สร้างเป็นของตน'], 0, 'การเคารพลิขสิทธิ์และข้อมูลส่วนบุคคลเป็นส่วนหนึ่งของจริยธรรมดิจิทัล', 'พลเมืองดิจิทัล'),
-  q('นักเรียนจะเผยแพร่วิดีโอที่ใช้เพลงของผู้อื่น ควรทำสิ่งใดก่อน?', ['ใส่เพลงให้ดังขึ้น', 'ตรวจใบอนุญาตเพลงหรือขออนุญาตตามความจำเป็น', 'เปลี่ยนชื่อเพลง', 'ตัดเพลงให้เหลือ 10 วินาทีแล้วใช้ได้เสมอ'], 1, 'ความยาวเพลงที่ใช้ไม่ได้เป็นหลักประกันว่าการใช้นั้นได้รับอนุญาต', 'พลเมืองดิจิทัล'),
-  q('การเคารพทรัพย์สินทางปัญญาหมายถึงอะไร?', ['ใช้ทุกอย่างฟรี', 'บังคับคนอื่นให้แชร์', 'รับรู้และปฏิบัติตามสิทธิ์ของผู้สร้างสรรค์', 'ห้ามอ้างอิงงานวิชาการ'], 2, 'ทรัพย์สินทางปัญญาเกี่ยวข้องกับสิทธิของผู้สร้างสรรค์ผลงาน', 'พลเมืองดิจิทัล'),
-  q('ข้อใดเป็นการละเมิดจริยธรรมดิจิทัลอย่างชัดเจน?', ['ขออนุญาตนำภาพไปใช้', 'ใช้ภาพ CC0 พร้อมตรวจแหล่งที่มา', 'อ้างอิงแหล่งข้อมูล', 'นำงานคนอื่นมาอ้างว่าเป็นของตน'], 3, 'การแอบอ้างผลงานของผู้อื่นขัดกับจริยธรรมการใช้ข้อมูล', 'พลเมืองดิจิทัล'),
-  q('เหตุใดจึงควรตรวจสอบแหล่งข้อมูลก่อนแบ่งปัน?', ['ลดโอกาสแพร่กระจายข้อมูลผิดพลาด', 'ทำให้ไฟล์ใหญ่ขึ้น', 'ทำให้การโพสต์เร็วขึ้น', 'ทำให้ไม่ต้องอ้างอิง'], 0, 'ความถูกต้องของข้อมูลมีผลต่อผู้อื่นและความน่าเชื่อถือ', 'พลเมืองดิจิทัล'),
-  q('หากเพื่อนส่งภาพส่วนตัวของคนอื่นมา ควรทำอย่างไร?', ['เผยแพร่ต่อทันที', 'หลีกเลี่ยงการเผยแพร่โดยไม่ได้รับอนุญาต', 'ใส่ฟิลเตอร์ก่อนส่ง', 'โพสต์โดยไม่ใส่ชื่อ'], 1, 'ควรเคารพสิทธิความเป็นส่วนตัวของบุคคล', 'พลเมืองดิจิทัล'),
-  q('เหตุผลสำคัญที่สัญลักษณ์ Creative Commons มีประโยชน์คืออะไร?', ['แทนคุณภาพภาพถ่าย', 'ใช้แทนชื่อเจ้าของเว็บ', 'บอกเงื่อนไขการอนุญาตใช้ผลงานอย่างชัดเจน', 'การันตีว่าผลงานฟรีทุกแบบ'], 2, 'Creative Commons ช่วยให้ผู้ใช้รู้ขอบเขตที่ผู้สร้างอนุญาต'),
-  q('หากต้องการใช้รูปประกอบบทเรียนและดัดแปลง ควรหลีกเลี่ยงสัญลักษณ์ใด?', ['BY', 'SA', 'CC', 'ND'], 3, 'ND จำกัดการแบ่งปันผลงานที่มีการดัดแปลง'),
-  q('การใช้ภาพที่มี NC ในโฆษณาสินค้าควรทำอย่างไร?', ['ขออนุญาตเพิ่มเติมจากเจ้าของสิทธิ์ก่อน', 'ใช้ทันทีเพราะมีเครดิต', 'ลบสัญลักษณ์ NC', 'ใส่ข้อความว่าเพื่อการศึกษาแล้วจบ'], 0, 'การใช้ในโฆษณาอาจเป็นการใช้เชิงพาณิชย์ ซึ่งเกินเงื่อนไข NC'),
-  q('Creative Commons สร้างขึ้นเพื่อวัตถุประสงค์หลักใด?', ['บังคับให้ผลงานทุกชิ้นใช้ฟรี', 'ทำให้การแบ่งปันและใช้ซ้ำมีเงื่อนไขที่เข้าใจง่าย', 'ยกเลิกกฎหมายทุกฉบับ', 'เปลี่ยนข้อมูลส่วนตัวเป็นสาธารณะ'], 1, 'CC เป็นเครื่องมือมาตรฐานสำหรับกำหนดสิทธิ์การใช้ผลงาน'),
-  q('ใครเป็นผู้เลือกใช้สัญญาอนุญาต CC ให้ผลงานของตน?', ['ผู้แชร์คนสุดท้าย', 'ผู้ค้นหาใน Google', 'ผู้มีสิทธิ์อนุญาตในผลงานนั้น', 'ครูทุกคน'], 2, 'ผู้มีอำนาจอนุญาตใช้ผลงานสามารถกำหนดเงื่อนไข CC ได้'),
-  q('ใบอนุญาต CC โดยทั่วไปสามารถเปลี่ยนย้อนหลังเพื่อตัดสิทธิ์ที่ให้ไปแล้วหรือไม่?', ['ได้เสมอ', 'ได้ถ้ามีผู้ชมมาก', 'ได้ถ้าเปลี่ยนสี', 'โดยทั่วไปสิทธิ์ที่ได้รับถูกต้องตามเงื่อนไขเดิมยังคงอยู่'], 3, 'สัญญาอนุญาต CC โดยทั่วไปให้สิทธิ์แบบเพิกถอนไม่ได้ หากผู้รับยังปฏิบัติตามเงื่อนไข'),
-  q('ข้อใดตรงกับ BY-NC-SA มากที่สุด?', ['ระบุที่มา + ไม่ใช้เชิงพาณิชย์ + แชร์งานดัดแปลงแบบเดียวกัน', 'ไม่ต้องระบุที่มา + ใช้เพื่อการค้า', 'ห้ามดัดแปลงทุกกรณี', 'ไม่ต้องบอกเงื่อนไข'], 0, 'เป็นสามเงื่อนไขหลักของ BY-NC-SA'),
-  q('ข้อใดตรงกับ BY-NC-ND มากที่สุด?', ['ให้เครดิต + ใช้เชิงพาณิชย์ได้เสมอ', 'ให้เครดิต + ไม่ใช้เชิงพาณิชย์ + ไม่แชร์งานดัดแปลง', 'ไม่ต้องให้เครดิต', 'ต้องดัดแปลงก่อนแชร์'], 1, 'BY-NC-ND เป็นสัญญาอนุญาตที่กำหนดสามเงื่อนไขร่วมกัน'),
-  q('CC BY 4.0 แตกต่างจาก CC0 อย่างไร?', ['ทั้งคู่ห้ามแบ่งปัน', 'CC0 ต้องระบุที่มาเสมอโดยข้อกำหนดเดียวกับ BY', 'CC BY กำหนดให้ระบุที่มา ส่วน CC0 มุ่งสละสิทธิ์ให้มากที่สุด', 'CC BY ใช้ได้เฉพาะรูปภาพ'], 2, 'CC BY เป็นใบอนุญาตที่ต้องให้เครดิต ส่วน CC0 เป็นเครื่องมือสละสิทธิ์เท่าที่ทำได้'),
-  q('เมื่อใช้ผลงาน CC ที่มีเครื่องหมาย SA แล้วดัดแปลง ผู้ใช้ควรทำอย่างไร?', ['ลบเงื่อนไขเดิม', 'ปิดข้อมูลต้นฉบับ', 'ห้ามพูดถึงผู้สร้าง', 'ใช้สัญญาอนุญาตที่ตรงตามข้อกำหนด ShareAlike'], 3, 'หลักของ SA คือการส่งต่อสิทธิ์ภายใต้เงื่อนไขที่เหมาะสม'),
-  q('นักเรียนพบภาพ CC BY ในเว็บไซต์ จะทำปกงานได้หรือไม่?', ['ได้ตามเงื่อนไข โดยให้เครดิตและระบุการดัดแปลง', 'ห้ามใช้ภาพในรายงาน', 'ได้แต่ห้ามบอกชื่อผู้สร้าง', 'ได้เฉพาะเมื่อซื้อภาพ'], 0, 'ผู้ใช้ต้องตรวจเวอร์ชันใบอนุญาตและปฏิบัติตามเงื่อนไข'),
-  q('เลือกใช้สื่อใดสำหรับงานที่ต้องการตัดต่อและเผยแพร่ต่อได้ง่ายที่สุด?', ['สื่อที่ไม่มีข้อมูลเจ้าของเลย', 'สื่อ CC BY ที่ตรวจสอบใบอนุญาตได้', 'ภาพที่มีป้าย All rights reserved โดยไม่ขออนุญาต', 'ภาพที่เพื่อนส่งมาโดยไม่มีที่มา'], 1, 'ใบอนุญาต CC BY ที่ถูกต้องเปิดให้ดัดแปลงและเผยแพร่เมื่อให้เครดิต'),
-  q('ถ้าเจ้าของงานระบุ BY และ NC พร้อมกัน ต้องทำอย่างไร?', ['เลือกทำข้อใดข้อหนึ่ง', 'ไม่ต้องทำทั้งสองข้อ', 'ทำตามทั้งเงื่อนไขการให้เครดิตและไม่ใช้เชิงพาณิชย์', 'เปลี่ยนเป็น ND'], 2, 'เงื่อนไขหลายตัวอักษรต้องพิจารณาร่วมกัน'),
-  q('ข้อใดเป็นมารยาททางดิจิทัลที่เหมาะสม?', ['เผยแพร่ภาพเพื่อนโดยไม่ถาม', 'โพสต์คำหยาบเมื่อเห็นต่าง', 'อ้างผลงานคนอื่นเป็นของตน', 'แสดงความคิดเห็นด้วยเหตุผลและเคารพผู้อื่น'], 3, 'การสื่อสารอย่างเคารพช่วยสร้างสังคมออนไลน์ที่ปลอดภัย', 'พลเมืองดิจิทัล'),
-  q('นักเรียนได้รับอนุญาตให้ใช้ภาพในงานหนึ่ง ควรสรุปอย่างไร?', ['ตรวจขอบเขตการอนุญาตสำหรับงานอื่นก่อนใช้ซ้ำ', 'ใช้ภาพนั้นได้ทุกวัตถุประสงค์ทันที', 'ยกสิทธิ์ให้เพื่อนได้เสมอ', 'ลบเครดิตได้'], 0, 'ขอบเขตการอนุญาตอาจจำกัดตามข้อตกลง จึงควรตรวจการใช้แต่ละครั้ง'),
-  q('การใส่ลิงก์ใบอนุญาต CC ในเครดิตมีข้อดีใด?', ['ทำให้ผู้ใช้ซ่อนเครดิตได้', 'ช่วยให้ผู้อ่านตรวจเงื่อนไขได้', 'ทำให้ภาพกลายเป็น CC0', 'เปลี่ยนผู้สร้างผลงาน'], 1, 'การอ้างลิงก์ช่วยให้ตรวจสอบต้นทางของเงื่อนไขได้'),
-  q('ข้อใดเป็นการเรียนรู้เรื่องลิขสิทธิ์อย่างมีวิจารณญาณ?', ['จำสีของโลโก้อย่างเดียว', 'กดดาวน์โหลดให้เร็วที่สุด', 'อ่านเงื่อนไขใบอนุญาตแล้ววิเคราะห์สถานการณ์การใช้จริง', 'พึ่งความเคยชินอย่างเดียว'], 2, 'เป้าหมายคือใช้สิทธิ์ของผู้อื่นได้อย่างเหมาะสมตามเงื่อนไข'),
-  q('กรณีต้องการเผยแพร่เพลงดัดแปลง ควรระวังเงื่อนไขใดมากที่สุด?', ['CC0', 'BY', 'CC', 'ND'], 3, 'หากได้รับอนุญาตแบบ ND การเผยแพร่งานดัดแปลงจะไม่อยู่ในสิทธิ์ที่อนุญาต'),
-  q('คำว่า “Attribution” ใน CC สอดคล้องกับการกระทำใด?', ['ให้เครดิตและอ้างที่มาของผลงาน', 'ห้ามคัดลอกทุกกรณี', 'ให้เงินผู้สร้างเสมอ', 'ห้ามนำไปใช้ในการเรียน'], 0, 'Attribution หมายถึงการให้เครดิต'),
-  q('แหล่งข้อมูลใดเหมาะกับการตรวจเงื่อนไข CC ของภาพมากที่สุด?', ['คำบอกเล่าที่ไม่มีแหล่ง', 'หน้าต้นทางของผลงานและลิงก์ใบอนุญาต', 'ชื่อไฟล์เพียงอย่างเดียว', 'สีของรูป'], 1, 'หน้าแหล่งที่มาและเงื่อนไขใบอนุญาตให้ข้อมูลที่น่าเชื่อถือกว่า'),
-  q('หากภาพมีเงื่อนไข BY-NC-ND ผู้เรียนต้องการตัดต่อแล้วเผยแพร่ ควรทำอย่างไร?', ['ตัดต่อแล้วเผยแพร่ทันที', 'ลบชื่อเจ้าของ', 'ขออนุญาตเพิ่มเติมหรือเลือกภาพที่อนุญาตให้ดัดแปลง', 'โพสต์ภาพโดยไม่ระบุที่มา'], 2, 'เพราะ ND ไม่อนุญาตให้แชร์งานดัดแปลงภายใต้ใบอนุญาตดังกล่าว'),
-  q('การใช้ผลงานที่มี CC มักต้องตรวจเรื่องใดเพิ่มเติม?', ['ขนาดหน้าจอเท่านั้น', 'สีพื้นหลังเท่านั้น', 'จำนวนผู้ติดตามเท่านั้น', 'สิทธิของบุคคลในภาพ เครื่องหมายการค้า และเงื่อนไขอื่นที่เกี่ยวข้อง'], 3, 'ใบอนุญาต CC ไม่ได้ครอบคลุมสิทธิ์ทั้งหมด เช่น ความเป็นส่วนตัวของบุคคล'),
-  q('เหตุใดการให้เครดิตจึงสำคัญต่อการสร้างสรรค์ผลงาน?', ['เคารพผู้สร้างและเปิดทางให้ผู้อื่นตรวจสอบแหล่งที่มา', 'ทำให้ภาพไฟล์เล็กลง', 'เพิ่มความเร็วเน็ต', 'ยกเลิกลิขสิทธิ์ทั้งหมด'], 0, 'การให้เครดิตส่งเสริมความรับผิดชอบและการเคารพทรัพย์สินทางปัญญา'),
-  q('หากใช้แหล่งข้อมูลออนไลน์หลายแห่ง ควรทำอย่างไร?', ['รวมเครดิตไว้เป็นชื่อของตน', 'จัดทำรายการที่มาให้ตรวจสอบได้', 'เลือกใส่ชื่อที่จำง่าย', 'ไม่ต้องระบุเนื่องจากมีหลายแหล่ง'], 1, 'การอ้างอิงแหล่งที่มาอย่างเป็นระบบช่วยเพิ่มความน่าเชื่อถือ'),
-  q('กรณีใดเหมาะกับการใช้คำถามท้ายกิจกรรมเปิดแผ่นป้าย?', ['ใครกดเร็วที่สุดเท่านั้น', 'ใครจำสีได้มากกว่า', 'ถ้าใช้ภาพนี้ทำวิดีโอขายสินค้าได้หรือไม่ เพราะอะไร', 'ใครนั่งหน้าห้อง'], 2, 'คำถามเชื่อมสถานการณ์จริงช่วยวัดความเข้าใจเชิงประยุกต์'),
-  q('ข้อใดช่วยให้การสื่อสารบนโลกออนไลน์ปลอดภัยขึ้น?', ['เปิดเผยรหัสผ่านกับเพื่อน', 'แชร์ตำแหน่งตลอดเวลา', 'คลิกลิงก์ที่ไม่รู้จักทุกครั้ง', 'ตรวจสอบเนื้อหาและรักษาข้อมูลส่วนบุคคลก่อนเผยแพร่'], 3, 'ความปลอดภัยดิจิทัลเป็นส่วนหนึ่งของการใช้เทคโนโลยีอย่างมีจริยธรรม', 'พลเมืองดิจิทัล'),
-  q('หากนำภาพที่มีใบอนุญาต CC BY มาใส่สไลด์ ควรแสดงอะไร?', ['ชื่อผู้สร้างและข้อมูลใบอนุญาตในตำแหน่งที่เหมาะสม', 'เฉพาะโลโก้ PowerPoint', 'เฉพาะวันที่นำเสนอ', 'เฉพาะชื่อห้องเรียน'], 0, 'ควรทำให้ผู้ชมตรวจสอบที่มาของภาพและใบอนุญาตได้'),
-  q('เหตุใดจึงต้องอ่านใบอนุญาตฉบับเต็มเมื่อมีข้อสงสัย?', ['เพราะชื่อไฟล์ไม่สวย', 'เพราะข้อความย่ออาจไม่ครอบคลุมเงื่อนไขหรือข้อยกเว้นทั้งหมด', 'เพราะภาพทุกรูปเหมือนกัน', 'เพราะเครื่องหมาย CC ห้ามใช้เสมอ'], 1, 'ป้ายสัญลักษณ์เป็นเพียงสรุป ควรตรวจข้อกำหนดต้นฉบับเมื่อจำเป็น'),
-];
-
-
-
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -265,24 +180,18 @@ const els = {
   score: $('score'), timer: $('timer'), complete: $('boardComplete'),
   thinkBanner: $('thinkBanner'), thinkCount: $('thinkCount'), thinkStatus: $('thinkStatus'), thinkProgress: $('thinkProgress'),
   think10Btn: $('think10Btn'), think15Btn: $('think15Btn'), thinkStartBtn: $('thinkStartBtn'), thinkResetBtn: $('thinkResetBtn'),
-  questionThink: $('questionThink'), questionThinkCount: $('questionThinkCount'), questionThinkStart: $('questionThinkStart'),
-  revealMode: $('revealMode'), quizMode: $('quizMode'),
   hintBtn: $('hintBtn'), hintBox: $('hintBox'), revealAllBtn: $('revealAllBtn'),
   nextRoundBtn: $('nextRoundBtn'), resetBtn: $('resetBtn'), soundBtn: $('soundBtn'), fullscreenBtn: $('fullscreenBtn'),
-  modal: $('questionModal'), questionCategory: $('questionCategory'), questionNumber: $('questionNumber'),
-  questionTitle: $('questionTitle'), answerOptions: $('answerOptions'),
-  answerFeedback: $('answerFeedback'), continueBtn: $('continueBtn'), closeModalBtn: $('closeModalBtn'), toast: $('toast'), confetti: $('confetti'),
+  toast: $('toast'), confetti: $('confetti'),
 };
 
 const TOTAL_TILES = 36;
 const TOTAL_ROUNDS = 5;
 const state = {
-  mode: 'reveal', round: 0, rounds: [], opened: new Set(),
-  quizDeck: [], answered: 0, activeTile: -1, answeredModal: false, score: 0,
+  round: 0, rounds: [], opened: new Set(), score: 0,
   running: false, seconds: 0, muted: true, hintVisible: false, revealed: false,
   thinkDuration: 15, thinkRemaining: 15, thinkPhase: 'idle', thinkEndAt: 0, thinkInterval: null,
 };
-let lastFocusedTile = null;
 let audioContext = null;
 let toastTimeout = null;
 
@@ -302,14 +211,11 @@ function renderThinkTimer() {
   const labels = { idle: 'พร้อมเริ่มจับเวลา', running: 'กำลังคิด · ปรึกษากับเพื่อน', paused: 'หยุดชั่วคราว', done: 'หมดเวลาคิด! แสดงคำตอบได้เลย' };
   const time = String(remaining).padStart(2, '0');
   els.thinkCount.textContent = time;
-  els.questionThinkCount.textContent = time;
   els.thinkStatus.textContent = labels[phase];
   els.thinkProgress.style.width = `${Math.max(0, remaining / state.thinkDuration) * 100}%`;
   els.thinkBanner.dataset.phase = phase;
-  els.questionThink.dataset.phase = phase;
   els.thinkBanner.classList.toggle('is-low', remaining <= 5 && phase === 'running');
   els.thinkStartBtn.textContent = actions[phase];
-  els.questionThinkStart.textContent = actions[phase];
   for (const [duration, button] of [[10, els.think10Btn], [15, els.think15Btn]]) {
     const active = state.thinkDuration === duration;
     button.classList.toggle('active', active);
@@ -409,7 +315,7 @@ function celebration() {
 
 function startTimer() { state.running = true; }
 setInterval(() => {
-  if (!state.running || !els.modal.hidden) return;
+  if (!state.running) return;
   state.seconds++;
   els.timer.textContent = `${String(Math.floor(state.seconds / 60)).padStart(2, '0')}:${String(state.seconds % 60).padStart(2, '0')}`;
 }, 1000);
@@ -418,16 +324,14 @@ function currentCard() { return state.rounds[state.round]; }
 
 function renderArt() {
   const card = currentCard();
-  const isQuiz = state.mode === 'quiz';
   els.art.dataset.tone = card.tone;
   els.artImage.src = card.image;
-  els.artImage.hidden = isQuiz;
-  els.artTitle.textContent = isQuiz ? '❔' : card.label;
-  els.artSubtitle.textContent = isQuiz ? 'เลือกแผ่นป้ายเพื่อสุ่มคำถาม' : card.subtitle;
-  els.artTitle.hidden = !isQuiz && !state.revealed;
-  els.artSubtitle.hidden = !isQuiz && !state.revealed;
-  els.art.classList.toggle('is-revealed', !isQuiz && state.revealed);
-  els.art.setAttribute('aria-label', isQuiz ? 'โหมดตอบคำถาม' : (state.revealed ? `${card.label} — ${card.subtitle}` : 'ภาพปริศนา Creative Commons'));
+  els.artTitle.textContent = card.label;
+  els.artSubtitle.textContent = card.subtitle;
+  els.artTitle.hidden = !state.revealed;
+  els.artSubtitle.hidden = !state.revealed;
+  els.art.classList.toggle('is-revealed', state.revealed);
+  els.art.setAttribute('aria-label', state.revealed ? `${card.label} — ${card.subtitle}` : 'ภาพปริศนา Creative Commons');
   els.art.setAttribute('aria-hidden', 'true');
 }
 
@@ -447,47 +351,29 @@ function makeTiles() {
   }
 }
 
-function setTileOpened(tile, questionAnswered = false) {
-  tile.classList.add(questionAnswered ? 'answered-quiz' : 'opened');
+function setTileOpened(tile) {
+  tile.classList.add('opened');
   tile.disabled = true;
   tile.setAttribute('aria-label', `ป้ายหมายเลข ${Number(tile.dataset.tile)+1} เปิดแล้ว`);
 }
 
 function refreshStatus() {
-  const openedCount = state.mode === 'reveal' ? state.opened.size : state.answered;
+  const openedCount = state.opened.size;
   const percent = (openedCount / TOTAL_TILES) * 100;
   els.score.textContent = String(state.score);
   els.openedCount.innerHTML = `${openedCount}<span class="subnum">/36</span>`;
-  els.progressText.textContent = state.mode === 'reveal' ? `เปิดแล้ว ${openedCount} / 36 ป้าย` : `ตอบแล้ว ${openedCount} / 36 คำถาม`;
+  els.progressText.textContent = `เปิดแล้ว ${openedCount} / 36 ป้าย`;
   els.progressFill.style.width = `${percent}%`;
-  els.roundInfo.textContent = state.mode === 'reveal' ? `ROUND ${String(state.round + 1).padStart(2,'0')} / ${String(TOTAL_ROUNDS).padStart(2,'0')}` : 'QUESTION CHALLENGE';
-  els.roundNumber.textContent = state.mode === 'reveal' ? String(state.round + 1).padStart(2,'0') : '01';
-  els.gameStatus.textContent = state.mode === 'reveal' ? 'โหมดเปิดป้ายภาพปริศนา' : 'โหมดท้าทายความรู้ · สุ่มคำถามไม่ซ้ำ';
+  els.roundInfo.textContent = `ROUND ${String(state.round + 1).padStart(2,'0')} / ${String(TOTAL_ROUNDS).padStart(2,'0')}`;
+  els.roundNumber.textContent = String(state.round + 1).padStart(2,'0');
+  els.gameStatus.textContent = 'เปิดภาพปริศนา';
   els.complete.hidden = openedCount !== TOTAL_TILES;
-  els.revealAllBtn.hidden = state.mode !== 'reveal';
-  els.hintBtn.hidden = state.mode !== 'reveal';
-  els.nextRoundBtn.hidden = state.mode !== 'reveal';
   els.nextRoundBtn.textContent = state.round === TOTAL_ROUNDS - 1 ? '↻ เล่นเกมชุดใหม่' : '➜ รอบถัดไป →';
-  els.nextRoundBtn.disabled = state.mode !== 'reveal';
-  els.revealMode.classList.toggle('active', state.mode === 'reveal');
-  els.quizMode.classList.toggle('active', state.mode === 'quiz');
-  els.revealMode.setAttribute('aria-pressed', String(state.mode === 'reveal'));
-  els.quizMode.setAttribute('aria-pressed', String(state.mode === 'quiz'));
-  els.board.classList.toggle('quiz-board', state.mode === 'quiz');
-  els.hintBox.hidden = !state.hintVisible || state.mode !== 'reveal';
+  els.nextRoundBtn.disabled = false;
+  els.hintBox.hidden = !state.hintVisible;
 }
 
 function openTile(tile, index) {
-  if (state.mode === 'quiz') {
-    if (state.activeTile !== -1 || state.opened.has(index) || state.answered >= TOTAL_TILES) return;
-    startTimer();
-    state.activeTile = index;
-    state.answeredModal = false;
-    lastFocusedTile = tile;
-    showQuestion(state.quizDeck[state.answered]);
-    playTone('flip');
-    return;
-  }
   if (state.opened.has(index)) return;
   startTimer();
   state.opened.add(index);
@@ -505,82 +391,7 @@ function openTile(tile, index) {
   }
 }
 
-function showQuestion(question) {
-  resetThinkTimer();
-  els.modal.hidden = false;
-  els.questionTitle.textContent = question.text;
-  els.questionCategory.textContent = question.category;
-  els.questionNumber.textContent = `QUESTION ${String(state.answered + 1).padStart(2, '0')} / ${TOTAL_TILES}`;
-  els.answerOptions.replaceChildren();
-  els.answerFeedback.hidden = true;
-  els.answerFeedback.classList.remove('negative');
-  els.continueBtn.hidden = true;
-  question.options.forEach((option, index) => {
-    const btn = document.createElement('button');
-    btn.className = 'answer-option'; btn.type = 'button';
-    const letter = document.createElement('span'); letter.className = 'answer-letter'; letter.textContent = 'ABCD'[index];
-    const content = document.createElement('span'); content.textContent = option;
-    btn.append(letter, content);
-    btn.addEventListener('click', () => checkOption(index));
-    els.answerOptions.append(btn);
-  });
-  els.answerOptions.querySelector('button')?.focus();
-}
-
-function checkOption(index) {
-  if (state.answeredModal || state.activeTile < 0) return;
-  const question = state.quizDeck[state.answered];
-  const correct = gradeAnswer(question, index);
-  state.answeredModal = true;
-  pauseThinkTimer();
-  if (correct) { state.score += 10; playTone('correct'); }
-  else { playTone('incorrect'); }
-  [...els.answerOptions.children].forEach((btn,i) => {
-    btn.disabled = true;
-    if (i === question.answer) btn.classList.add('correct');
-    else if (i === index) btn.classList.add('wrong');
-  });
-  els.answerFeedback.hidden = false;
-  els.answerFeedback.classList.toggle('negative', !correct);
-  els.answerFeedback.replaceChildren();
-  const title = document.createElement('strong');
-  title.textContent = correct ? '✓ ถูกต้อง! +10 คะแนน' : `✕ ยังไม่ถูก · คำตอบที่ถูกคือ ${'ABCD'[question.answer]}`;
-  const explanation = document.createElement('div'); explanation.textContent = question.explanation;
-  els.answerFeedback.append(title, explanation);
-  els.continueBtn.hidden = false;
-  refreshStatus();
-  els.continueBtn.focus();
-}
-
-function closeQuestion() {
-  resetThinkTimer();
-  if (state.activeTile === -1) { els.modal.hidden = true; return; }
-  if (state.answeredModal) finishQuestion();
-  else { state.activeTile = -1; els.modal.hidden = true; lastFocusedTile?.focus(); }
-}
-
-function finishQuestion() {
-  resetThinkTimer();
-  if (!state.answeredModal || state.activeTile === -1) return;
-  els.modal.hidden = true;
-  const tile = els.tiles.querySelector(`[data-tile="${state.activeTile}"]`);
-  if (tile) setTileOpened(tile, true);
-  state.opened.add(state.activeTile);
-  state.activeTile = -1;
-  state.answered++;
-  state.answeredModal = false;
-  refreshStatus();
-  if (state.answered === TOTAL_TILES) {
-    state.running = false;
-    celebration();
-    showToast(`ยอดเยี่ยม! ครบ 36 ข้อ ได้ ${state.score} / 360 คะแนน ✨`);
-  }
-  const nextTile = [...els.tiles.querySelectorAll('button:not(:disabled)')][0];
-  nextTile?.focus();
-}
-
 function revealAll() {
-  if (state.mode !== 'reveal') return;
   resetThinkTimer();
   startTimer();
   state.revealed = true;
@@ -598,7 +409,6 @@ function revealAll() {
 }
 
 function nextRound() {
-  if (state.mode !== 'reveal') return;
   if (state.round >= TOTAL_ROUNDS - 1) { newGame(); showToast('สุ่มชุดภาพปริศนาใหม่แล้ว'); return; }
   state.round++;
   resetThinkTimer();
@@ -612,47 +422,34 @@ function nextRound() {
   showToast(`เริ่มรอบ ${state.round + 1} · คำตอบไม่ซ้ำกับรอบก่อน`);
 }
 
-function newGame(mode = state.mode) {
+function newGame() {
   resetThinkTimer();
-  state.mode = mode;
   state.round = 0;
   state.rounds = selectUnique(REVEAL_CARDS, TOTAL_ROUNDS);
-  state.quizDeck = selectUnique(QUESTIONS, TOTAL_TILES);
   state.opened.clear();
-  state.answered = 0;
-  state.activeTile = -1;
-  state.answeredModal = false;
   state.score = 0;
   state.running = false;
   state.seconds = 0;
   state.hintVisible = false;
   state.revealed = false;
   els.timer.textContent = '00:00';
-  els.modal.hidden = true;
   renderArt();
   makeTiles();
   refreshStatus();
 }
 
-els.revealMode.addEventListener('click', () => { if (state.mode !== 'reveal') { newGame('reveal'); showToast('เข้าสู่โหมดเปิดภาพปริศนา'); } });
-els.quizMode.addEventListener('click', () => { if (state.mode !== 'quiz') { newGame('quiz'); showToast('สุ่มคำถาม 36 ข้อที่ไม่ซ้ำกันแล้ว'); } });
-els.resetBtn.addEventListener('click', () => { newGame(); showToast('เริ่มเกมใหม่และสุ่มชุดคำถามอีกครั้งแล้ว'); });
+els.resetBtn.addEventListener('click', () => { newGame(); showToast('เริ่มเกมใหม่และสุ่มภาพปริศนาแล้ว'); });
 els.nextRoundBtn.addEventListener('click', nextRound);
 els.revealAllBtn.addEventListener('click', revealAll);
 els.think10Btn.addEventListener('click', () => setThinkDuration(10));
 els.think15Btn.addEventListener('click', () => setThinkDuration(15));
 els.thinkStartBtn.addEventListener('click', toggleThinkTimer);
-els.questionThinkStart.addEventListener('click', toggleThinkTimer);
 els.thinkResetBtn.addEventListener('click', resetThinkTimer);
 els.hintBtn.addEventListener('click', () => {
-  if (state.mode !== 'reveal') return;
   state.hintVisible = !state.hintVisible;
   els.hintBox.textContent = `💡 ${currentCard().hint}`;
   refreshStatus();
 });
-els.closeModalBtn.addEventListener('click', closeQuestion);
-els.continueBtn.addEventListener('click', finishQuestion);
-els.modal.addEventListener('click', (event) => { if (event.target === els.modal) closeQuestion(); });
 els.soundBtn.addEventListener('click', () => {
   state.muted = !state.muted;
   els.soundBtn.textContent = state.muted ? '🔇' : '🔊';
@@ -667,12 +464,11 @@ async function toggleFullscreen() {
   } catch (_) { showToast('เบราว์เซอร์นี้ไม่รองรับโหมดเต็มหน้าจอ'); }
 }
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !els.modal.hidden) closeQuestion();
   if (event.key.toLowerCase() === 't' && !event.repeat && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName) && !document.activeElement?.isContentEditable) {
     event.preventDefault();
     toggleThinkTimer();
   }
-  if (event.key.toLowerCase() === 'f' && els.modal.hidden && !event.repeat && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) toggleFullscreen();
+  if (event.key.toLowerCase() === 'f' && !event.repeat && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) toggleFullscreen();
 });
 els.scene.addEventListener('pointermove', (event) => {
   if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -687,7 +483,7 @@ els.scene.addEventListener('pointerleave', () => {
   els.board.style.setProperty('--tilty', '0deg');
 });
 
-newGame('reveal');
+newGame();
 
 </script>
 </body>
